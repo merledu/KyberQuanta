@@ -1,77 +1,42 @@
-def bytes_to_bits(byte_array):
-    """Convert a byte array into a bit array."""
-    bit_array = []
-    for byte in byte_array:
-        for i in range(8):
-            bit_array.append((byte >> i) & 1)
-    return bit_array
+def parse_polynomial(poly_str):
+    import re
+    
 
-def decode(bits, k):
-    """Decode bit array to polynomial coefficients."""
+    pattern = re.compile(r"(\d+)(x\^\d+)?")
+    matches = pattern.findall(poly_str)
+    
     coefficients = []
-    for i in range(256):  
-        coefficient = 0
-        for j in range(k):
-            if i * k + j < len(bits):
-                coefficient += bits[i * k + j] * (2 ** j)
-        coefficients.append(coefficient)
+    for match in matches:
+        if match[0]:  
+            coefficients.append(int(match[0]))
+    
     return coefficients
 
-def coefficients_to_polynomial(coefficients):
-    """Convert list of coefficients to polynomial string."""
-    terms = []
-    for power, coefficient in enumerate(coefficients):
-        if coefficient != 0:
-            term = f"{coefficient}x^{power}" if power > 0 else f"{coefficient}"
-            terms.append(term)
-    polynomial = " + ".join(terms[::-1])
-    return polynomial
+def encode_polynomial(coefficients):
+    formatted_result = []
+    
+    for coeff in coefficients:
+        
+        binary_string = f"{coeff:016b}"
+        
+       
+        first_byte = binary_string[:8]
+        second_byte = binary_string[8:]
+        
+     
+        first_byte_list = [int(bit) for bit in first_byte]
+        second_byte_list = [int(bit) for bit in second_byte]
+ 
+        formatted_result.append(first_byte_list)
+        formatted_result.append(second_byte_list)
+    
+    return formatted_result
 
-def coefficients_to_bits(coefficients, k):
-    """Convert polynomial coefficients to a bit array."""
-    bits = []
-    for coefficient in coefficients:
-        for j in range(k):
-            bits.append((coefficient >> j) & 1)
-    return bits
+polynomial_str = "792X^0 + 96X^1 + 1554X^2 + 32X^3 + 524X^4 + 1360X^5 + 1290X^6 + 405X^7"
+coefficients = parse_polynomial(polynomial_str)
 
-def bits_to_bytes(bits):
-    """Convert a bit array to a byte array."""
-    byte_array = []
-    for i in range(0, len(bits), 8):
-        byte = 0
-        for j in range(8):
-            if i + j < len(bits):
-                byte |= (bits[i + j] << j)
-        byte_array.append(byte)
-    return byte_array
-
-def encode(coefficients, k):
-    """Encode polynomial coefficients to byte array."""
-    bits = coefficients_to_bits(coefficients, k)
-    byte_array = bits_to_bytes(bits)
-    return byte_array
+encoded_lists = encode_polynomial(coefficients)
 
 
-byte_array = [
-    0b01001000, 0b10111100, 0b00111110, 0b01010010,
-    0b01110000, 0b10101101, 0b11011011, 0b10010011,
-    0b00101000, 0b10111110, 0b01001000, 0b01110101,
-    0b10101100, 0b11011011, 0b10100010, 0b11110101,
-    0b01001001, 0b10111010, 0b00101001, 0b01110011,
-    0b11101100, 0b10101010, 0b11010110, 0b10100001,
-    0b10111011, 0b11101010, 0b01110000, 0b11010101,
-    0b11001111, 0b10101100, 0b10010110, 0b10100011
-]
-
-k = 8  
-
-
-bit_array = bytes_to_bits(byte_array)
-coefficients = decode(bit_array, k)
-polynomial = coefficients_to_polynomial(coefficients)
-print("Decoded polynomial:", polynomial)
-
-
-encoded_byte_array = encode(coefficients, k)
-print("Encoded byte array:", encoded_byte_array)
+for byte_list in encoded_lists:
+    print(byte_list)
