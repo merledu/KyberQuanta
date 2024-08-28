@@ -74,3 +74,66 @@ coefficients = decode_bits(bits, l)
 polynomial = coefficients_to_polynomial(coefficients)
 
 print(polynomial)
+
+
+# from byteTobits import BytesToBits
+
+# def decode(flat_bit_array, ell):
+#     # Debug: print length of flat_bit_array
+#     print(f"Length of flat_bit_array: {len(flat_bit_array)}")
+
+#     # Initialize the polynomial coefficients array
+#     polynomial = [0] * 256
+    
+#     # Loop through each coefficient of the polynomial
+#     for i in range(256-1):
+#         for j in range(ell):
+#             index = i * ell + j
+#             if index >= len(flat_bit_array):
+#                 print(f"Error: Index {index} is out of range.")
+#                 return None  # or handle the error appropriately
+#             polynomial[i] += flat_bit_array[index] * (2 ** j)
+    
+#     return polynomial
+
+# # Example 2D bit array input
+# bit_array = [
+#     [0, 1, 0, 0, 1, 0, 0, 0],
+#     [1, 0, 1, 1, 1, 1, 0, 0],
+#     [1, 0, 0, 1, 0, 0, 1, 0],
+#     [0, 0, 1, 1, 1, 0, 1, 1],
+#     [1, 0, 1, 1, 1, 0, 0, 1],
+#     [1, 0, 1, 0, 0, 0, 1, 1],
+#     [0, 1, 0, 1, 0, 1, 1, 0],
+#     [0, 0, 0, 0, 1, 0, 1, 1],
+#     [1, 0, 0, 1, 0, 0, 1, 0],
+#     [0, 0, 1, 1, 1, 0, 1, 1],
+#     [1, 0, 1, 1, 1, 0, 0, 1],
+#     [1, 0, 1, 0, 0, 0, 1, 1],
+#     [0, 1, 0, 1, 0, 1, 1, 0],
+#     [0, 0, 0, 0, 1, 0, 1, 1],
+#     [1, 0, 0, 1, 0, 0, 1, 0],
+#     [0, 0, 1, 1, 1, 0, 1, 1],
+#     [1, 0, 1, 1, 1, 0, 0, 1],
+#     [1, 0, 1, 0, 0, 0, 1, 1],
+#     [0, 1, 0, 1, 0, 1, 1, 0],
+#     [0, 0, 0, 0, 1, 0, 1, 1],
+#     [1, 0, 0, 1, 0, 0, 1, 0],
+#     [0, 0, 1, 1, 1, 0, 1, 1],
+#     [1, 0, 1, 1, 1, 0, 0, 1],
+#     [1, 0, 1, 0, 0, 0, 1, 1],
+#     [0, 1, 0, 1, 0, 1, 1, 0],
+#     [0, 0, 0, 0, 1, 0, 1, 1],
+#     [1, 0, 0, 1, 0, 0, 1, 0],
+#     [0, 0, 1, 1, 1, 0, 1, 1],
+#     [1, 0, 1, 1, 1, 0, 0, 1],
+#     [1, 0, 1, 0, 0, 0, 1, 1],
+#     [0, 1, 0, 1, 0, 1, 1, 0],
+#     [0, 0, 0, 0, 1, 0, 1, 1]
+# ]
+
+# flat_bit_array = BytesToBits(bit_array)
+# print(flat_bit_array)
+# ell = 8  # Bit length for each coefficient
+# polynomial = decode(flat_bit_array, ell)
+# print(polynomial)
