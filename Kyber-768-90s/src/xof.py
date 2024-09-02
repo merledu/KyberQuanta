@@ -1,21 +1,30 @@
-from hashlib import shake_256
+from Crypto.Cipher import AES
+from Crypto.Util import Counter
+import hashlib
+import os
 
-def XOF(input_value: bytes, output_length: int) -> bytes:
-    """
-    Simple implementation of an Extendable Output Function (XOF) using SHAKE256.
+def xof(rho, i, j):
+    key = hashlib.sha256(rho).digest()
     
-    :param input_value: The input value as a byte string.
-    :param output_length: The desired length of the output in bytes.
-    :return: An extendable output of the specified length.
-    """
-    shake = shake_256()
-    shake.update(input_value)
+    #  nonce purpose is to ensure that each encryption operation produces unique ciphertexts
+    nonce_input = rho + bytes([i]) + bytes([j])
     
-    # Generate an output of the specified length
-    return shake.digest(output_length)
+    nonce = nonce_input[:16].ljust(16, b'\x00')
+    
+    ctr = Counter.new(128, initial_value=int.from_bytes(nonce, byteorder='big'))
 
-# Example usage
-input_value = b'some_input'
-output_length = 32  # Generate 32 bytes of output
-xof_output = XOF(input_value, output_length)
-print(f"XOF Output: {xof_output.hex()}")
+    cipher = AES.new(key, AES.MODE_CTR, counter=ctr)
+
+    output_length = 64
+    output = cipher.encrypt(b'\x00' * output_length)
+    
+    return output
+
+
+rho = os.urandom(32)   
+i = 42  
+j = 7   
+
+output = xof(rho, i, j)
+
+print("Derived Key (hex):",output.hex())
