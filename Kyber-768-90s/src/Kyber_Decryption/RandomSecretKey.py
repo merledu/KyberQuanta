@@ -1,19 +1,19 @@
 import random
 
-def RandomSK(bit_length):
-    # Generate a random binary string of the given bit length
-    return ''.join(random.choice(['0', '1']) for _ in range(bit_length))
+def generate_secret_key():
+    # Set the parameters k, n, and bit length inside the function
+    k = 3
+    n = 256
+    # Calculate the length of the secret key in bytes
+    len_of_sk = (k * n * 12) // 8 
+    # Calculate the total bit length of the secret key
+    bit_length = len_of_sk * 8
 
-# Given values
-k = 3
-n = 256
+    # Generate a random binary string of the calculated bit length
+    secret_key = ''.join(random.choice(['0', '1']) for _ in range(bit_length))
 
-len_of_sk = (k * n * 12)//8 
+    # Return the secret key
+    return secret_key
 
-bit_length = len_of_sk * 8
-
-# Generate the secret key
-secret_key = RandomSK(bit_length)
-
-# Display the first 100 bits as an example
-print(secret_key[:100])
+# Generate and print the first 100 bits of the secret key
+print(generate_secret_key()[:100])
