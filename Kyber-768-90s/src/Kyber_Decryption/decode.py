@@ -24,4 +24,4 @@ byte_array =  b'\x01\x02\x03\x04'
 coeffs = Decode(byte_array)
 
 
-print(" + ".join(f"{coeff}X^{i}" for i, coeff in enumerate(coeffs)))
+# print(" + ".join(f"{coeff}X^{i}" for i, coeff in enumerate(coeffs)))

@@ -43,4 +43,4 @@ def generate_ciphertext():
 ciphertext = generate_ciphertext()
 
 # Print the ciphertext (in a human-readable format)
-print(f"Random ciphertext generated: {ciphertext}")
+# print(f"Random ciphertext generated: {ciphertext}")

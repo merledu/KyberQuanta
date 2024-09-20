@@ -18,4 +18,4 @@ input_bytes =  b'\x9b[H\xe8e\xfb\x08Re\xf1\xab\xe7\xf3v\xbd\x83\xca\xb6\x02\xf3\
 bits = bytes_to_bits(input_bytes)
 
 # Print the output
-print(bits)
+# print(bits)

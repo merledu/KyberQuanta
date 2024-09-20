@@ -16,4 +16,4 @@ def generate_secret_key():
     return secret_key
 
 # Generate and print the first 100 bits of the secret key
-print(generate_secret_key()[:100])
+# print(generate_secret_key()[:100])
