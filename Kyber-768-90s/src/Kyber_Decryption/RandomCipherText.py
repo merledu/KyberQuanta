@@ -21,10 +21,10 @@
 
 import os
 
-def generate_ciphertext():
+def generate_ciphertext(du,dv):
     # Set the parameters du, dv, k, and n inside the function
-    du = 3
-    dv = 2
+    # du = 3
+    # dv = 2
     k = 3
     n = 256
 
@@ -40,7 +40,7 @@ def generate_ciphertext():
     return ciphertext
 
 # Generate the random ciphertext
-ciphertext = generate_ciphertext()
+ciphertext = generate_ciphertext(11,5)
 
 # Print the ciphertext (in a human-readable format)
 # print(f"Random ciphertext generated: {ciphertext}")
