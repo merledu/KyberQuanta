@@ -5,7 +5,7 @@ def decompress(x,d):
   return temp
 
 # print(decompress(3,(math.ceil(math.log2(q))-1))) #d < Ceil(log2(3329))
-
+# print((math.ceil(math.log2(q))-1))
 
 #if it helps in creating any ambiguity in decoding then we can randomize
 #the value of d being given in a function
