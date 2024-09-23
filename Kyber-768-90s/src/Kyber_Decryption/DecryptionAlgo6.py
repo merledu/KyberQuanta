@@ -3,7 +3,7 @@ from bytesTobits import bytes_to_bits
 from decode import Decode
 from RandomCipherText import  generate_ciphertext
 from RandomSecretKey import generate_secret_key    
-# from decompress import decompress
+from decompress import decompress
 # from ntt import compute_ntt
 # from ntt_inverse import inverse_ntt
 # from compress import compress
@@ -20,9 +20,16 @@ def DecryptAlgo6():
 
     C = generate_ciphertext(du,dv)
     # Sec = generate_secret_key
-
+     
+    d1, d2 = C[:du*k*n//8], C[du*k*n//8:]
+    
     d1 = Decode(C, du)
-    d2 = Decode(C + ((du * k * n) // 8)  , dv)
+    d2 = Decode(C , dv)[0]
+
+    u = np.array([decompress(pol, d1) for pol in d1])
+    v = decompress(d2, dv)
+
+
 
     # u = decompress(d1 , du)
     # v = decompress(d2 , dv)
@@ -40,7 +47,7 @@ def DecryptAlgo6():
 
     # m = Encode(compressQ)
 
-    return d1
+    return v
 
     
     # return None
