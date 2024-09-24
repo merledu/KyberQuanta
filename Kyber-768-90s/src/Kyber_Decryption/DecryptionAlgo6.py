@@ -5,9 +5,9 @@ from RandomCipherText import  generate_ciphertext
 from RandomSecretKey import generate_secret_key    
 from decompress import decompress
 from ntt import compute_ntt
-# from ntt_inverse import inverse_ntt
-# from compress import compress
-# from encode import Encode
+from ntt_inverse import inverse_ntt
+from compress import compress
+from encode import Encode
 from bitsTobytes import bits_to_bytes
 
 def DecryptAlgo6():
@@ -41,7 +41,7 @@ def DecryptAlgo6():
     for j in d2:
         v = decompress(j,dv)
         xv.append(v)
-    # print(xv)
+    #print(xv)
 
     # line 3 work
     con = bits_to_bytes(Sec)
@@ -55,8 +55,42 @@ def DecryptAlgo6():
     ntt = compute_ntt(xu)
     # print(ntt)
 
-    ntt1 = np.matmul(s,ntt)
-    print(ntt1)
+    # ntt1 = np.dot(s,ntt)
+    # print(ntt1)
+    ntt1  =[]
+    for i in range(0,256):
+        abc = np.dot(s[i],ntt[i])
+        ntt1.append(abc)
+    # print(ntt1)
+
+    ntt_inverse = inverse_ntt(ntt1)
+    # print(ntt_inverse)
+
+    sub_v_ntt_inverse = []
+    for j in range(0, 255):
+        cba = xv[j] - ntt_inverse[j]
+        sub_v_ntt_inverse.append(cba)
+
+    # Convert all elements to their absolute values
+    # sub_v_ntt_inverse = [abs(x) for x in sub_v_ntt_inverse]
+
+    print(sub_v_ntt_inverse)
+
+    d = 1
+    compres=[]
+    for i in sub_v_ntt_inverse:
+        com = compress(i,d)
+        compres.append(com)
+    print(compres)
+
+
+    m = Encode(compres)
+
+    return m
+
+
+        
+
 
 
 

@@ -34,4 +34,4 @@ def inverse_ntt(f, q=3329):
 #driverscode
 f_ntt = [random.randint(0, 3328) for _ in range(256)] 
 f_inverse_ntt = inverse_ntt(f_ntt)
-print(f_inverse_ntt)
+# print(f_inverse_ntt)
