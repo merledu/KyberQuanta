@@ -45,14 +45,18 @@ def DecryptAlgo6():
 
     # line 3 work
     con = bits_to_bytes(Sec)
-    s = Decode(con , ell=12)
+    # print(len(con))
+    # print(con)
+    s = (Decode(con , ell=12))
     # print(s)
 
     #  line 4 work
 
-    ntt = compute_ntt(u)
-    print(ntt)
+    ntt = compute_ntt(xu)
+    # print(ntt)
 
+    ntt1 = np.matmul(s,ntt)
+    print(ntt1)
 
 
 
