@@ -1,45 +1,15 @@
 import math
 
-def BytesToBits(byte_array):
+def hex_to_bytes(hex_string):
+    """Converts hex string to a byte array."""
+    return bytes.fromhex(hex_string)
+
+def BytesToBits(hex_string):
+    """Converts byte array to a list of bits."""
+    byte_array = hex_to_bytes(hex_string)
     bits_array = []
-    for i in range(8 * len(byte_array)):
-            bits_array.append(math.ceil(byte_array[i//8][i%8] / (2 ** (i % 8))) % 2)
+    for byte in byte_array:
+        # Convert each byte to its 8-bit binary representation
+        for i in range(8):
+            bits_array.append((byte >> (7 - i)) & 1)
     return bits_array
-     
-b =  [
-    [1, 0, 0, 1, 0, 0, 1, 0],
-    [0, 0, 1, 1, 1, 0, 1, 1],
-    [1, 0, 1, 1, 1, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1],
-    [0, 1, 0, 1, 0, 1, 1, 0],
-    [0, 0, 0, 0, 1, 0, 1, 1],
-    [1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0],
-    [1, 0, 1, 1, 0, 1, 0, 1],
-    [0, 0, 1, 0, 1, 0, 1, 1],
-    [1, 1, 1, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 0, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 0],
-    [1, 1, 0, 1, 0, 1, 0, 0],
-    [0, 0, 1, 0, 1, 1, 0, 1],
-    [1, 1, 1, 1, 0, 0, 1, 0],
-    [0, 0, 1, 1, 0, 1, 1, 1],
-    [1, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 0, 0, 1, 1, 0, 1],
-    [0, 0, 1, 0, 1, 1, 1, 0],
-    [1, 0, 1, 1, 0, 0, 1, 1],
-    [0, 1, 1, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 1, 1, 0],
-    [1, 1, 0, 0, 1, 0, 1, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1],
-    [1, 0, 1, 1, 1, 1, 0, 0],
-    [0, 1, 1, 0, 1, 1, 0, 0],
-    [1, 0, 0, 0, 1, 1, 1, 1],
-    [0, 1, 0, 1, 1, 0, 1, 0],
-    [1, 1, 1, 0, 0, 1, 0, 1],
-    [0, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1, 0, 0]
-]
-
-
-print(BytesToBits(b))

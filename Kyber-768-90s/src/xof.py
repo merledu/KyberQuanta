@@ -15,7 +15,6 @@ def XOF(input_value: bytes, output_length: int) -> bytes:
     return shake.digest(output_length)
 
 # Example usage
-input_value = b'some_input'
-output_length = 32  # Generate 32 bytes of output
-xof_output = XOF(input_value, output_length)
-print(f"XOF Output: {xof_output.hex()}")
+input_value = b'f\x8d\xf1\xc4\x92+\xe3j\xe9R\xe39Bw\xffB\x8b"\xa0I+\x07\xa7e\xb4UZ\x03\x7f\xdf\xb6\x0c.A\x08:o\xb1\xf0\xb7\xe3l\x11\xa4\x02+\xc5\xcfg\xbdt\x9c6\x17\xa2u\x8b\x06\x0eE4\xd7\xb8\xfb'
+output_length = 256  # Generate 32 bytes of output
+# print(XOF(input_value, output_length))

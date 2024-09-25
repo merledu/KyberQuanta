@@ -66,4 +66,3 @@ polynomial_str = """1X^0 + 0X^1 + 0X^2 + 1X^3 + 0X^4 + 0X^5 + 1X^6 + 0X^7 +
 binary_list = Encode(polynomial_str)
 bytes_array=BitsToBytes(binary_list)
 
-print(bytes_array)

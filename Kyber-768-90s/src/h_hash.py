@@ -26,8 +26,5 @@ input_bytes = [
 flat_input_bytes = [item for sublist in input_bytes for item in sublist]
 
 byte_input = bytes(flat_input_bytes)
-print("h-Hash", _h(byte_input))
-binary_representation = ''.join(f'{byte:08b}' for byte in _h(byte_input))
-print("lentgh", len(binary_representation))
 
-print("Binary representation:", binary_representation)
+binary_representation = ''.join(f'{byte:08b}' for byte in _h(byte_input))

@@ -4,4 +4,3 @@ def compress(x,d):
   temp = round((2 ** d)/q *x)
   return temp % 2 ** d
 
-print(compress(5,(math.ceil(math.log2(q))-1))) #d < Ceil(log2(3329))

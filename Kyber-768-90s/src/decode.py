@@ -55,6 +55,3 @@ byte_array = [
 
 
 coeffs = Decode(byte_array)
-
-
-print(" + ".join(f"{coeff}X^{i}" for i, coeff in enumerate(coeffs)))

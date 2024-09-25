@@ -1,27 +1,31 @@
-def parse(q, b):
-    polynomial = ""
-    n = len(b)
-    a = []
-    i = 0
-    j = 0
-    terms = []
-    while j < n:
-        d1 = (b[i] + 256) * (b[i+1] % 16)
-        d2 = round(b[i+1]/16) + 16 * b[i+2]
+def parse(q, B):
+    """
+    Parse a byte stream into an array of integers suitable as polynomial coefficients.
+
+    Args:
+    q (int): Modulus, for ensuring coefficients are in the correct range.
+    B (bytes): Byte stream input.
+
+    Returns:
+    List[int]: List of integers representing polynomial coefficients.
+    """
+    a = []  # This will hold the coefficients
+    i = 0   # Index for byte stream
+
+    # Continue parsing while there are bytes available and the list of coefficients isn't full
+    while i < len(B) - 2:
+        # Calculate the two potential coefficients from three bytes
+        d1 = B[i] + (B[i + 1] % 16) * 256
+        d2 = (B[i + 1] // 16) + B[i + 2] * 16
+
+        # Append to the coefficient list if they are less than q
         if d1 < q:
-            a.insert(j,d1)
-            j += 1
-        if d2 < q and j < n:
-            a.insert(j, d2)
-            j += 1
-        i += 1
+            a.append(d1)
+        if d2 < q and len(a) < 256:  # Ensure we do not exceed 256 coefficients
+            a.append(d2)
 
-    for n in range(len(a)):
-        terms.append(f"{a[n]}X^{n}")
-    polynomial = " + ".join(terms)
+        # Move to the next set of bytes
+        i += 3
 
-    return polynomial
+    return a
 
-byte_stream = [8, 3, 6, 2, 85, 25, 23, 52]
-q = 3329
-print(parse(q, byte_stream))

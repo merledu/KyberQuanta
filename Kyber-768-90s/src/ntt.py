@@ -36,10 +36,3 @@ def compute_ntt(f, q=3329):
         length //= 2
 
     return f_hat
-
-#driverscode
-f = [random.randint(0, 5000) for _ in range(256)]
-print("f",f)
-f_ntt = compute_ntt(f)
-print(f_ntt)
-print(len(f_ntt))

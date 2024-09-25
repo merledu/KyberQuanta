@@ -43,4 +43,3 @@ bits_array = [1, 0, 0, 1, 0, 0, 1, 0,
               0, 0, 0, 1, 1, 0, 0, 1, 
               1, 1, 1, 1, 0, 1, 0, 0]  # This is the list of bits you have
 byte_array = BitsToBytes(bits_array)
-print(byte_array)
