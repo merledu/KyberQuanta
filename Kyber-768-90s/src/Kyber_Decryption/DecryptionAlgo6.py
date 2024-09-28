@@ -7,8 +7,9 @@ from decompress import decompress
 from ntt import compute_ntt
 from ntt_inverse import inverse_ntt
 from compress import compress
-from encode import Encode
+from encode import encode
 from bitsTobytes import bits_to_bytes
+from ntt_multiplication import multiply_ntts
 
 def DecryptAlgo6():
     du = 11
@@ -57,10 +58,13 @@ def DecryptAlgo6():
 
     # ntt1 = np.dot(s,ntt)
     # print(ntt1)
-    ntt1  =[]
-    for i in range(0,256):
-        abc = np.dot(s[i],ntt[i])
-        ntt1.append(abc)
+    # ntt1  =[]
+    # for i in range(0,256):
+    #     abc = np.dot(s[i],ntt[i])
+    #     ntt1.append(abc)
+    # print(ntt1)
+
+    ntt1 = multiply_ntts(s,ntt) 
     # print(ntt1)
 
     ntt_inverse = inverse_ntt(ntt1)
@@ -74,17 +78,19 @@ def DecryptAlgo6():
     # Convert all elements to their absolute values
     # sub_v_ntt_inverse = [abs(x) for x in sub_v_ntt_inverse]
 
-    print(sub_v_ntt_inverse)
+    # print(sub_v_ntt_inverse)
 
     d = 1
     compres=[]
     for i in sub_v_ntt_inverse:
         com = compress(i,d)
         compres.append(com)
-    print(compres)
+    # print(compres)
 
 
-    m = Encode(compres)
+    m = encode(compres)
+
+    print(m)
 
     return m
 
