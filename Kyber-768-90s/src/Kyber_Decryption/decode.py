@@ -22,7 +22,7 @@ byte_array =  b'@q\xb4\x82Qd\xb6\x9d\x86$>\x13\x8e\xed\xa4\xcc\x92(\xb3\x9d\xf8,
 
 
 coeffss = Decode(byte_array)
-print(coeffss)
+comp
 
 
 # print(" + ".join(f"{coeffss}X^{i}" for i, coeffss in enumerate(coeffss)))
