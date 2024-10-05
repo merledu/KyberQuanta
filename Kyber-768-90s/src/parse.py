@@ -1,31 +1,19 @@
 def parse(q, B):
-    """
-    Parse a byte stream into an array of integers suitable as polynomial coefficients.
-
-    Args:
-    q (int): Modulus, for ensuring coefficients are in the correct range.
-    B (bytes): Byte stream input.
-
-    Returns:
-    List[int]: List of integers representing polynomial coefficients.
-    """
-    a = []  # This will hold the coefficients
-    i = 0   # Index for byte stream
-
-    # Continue parsing while there are bytes available and the list of coefficients isn't full
-    while i < len(B) - 2:
-        # Calculate the two potential coefficients from three bytes
-        d1 = B[i] + (B[i + 1] % 16) * 256
-        d2 = (B[i + 1] // 16) + B[i + 2] * 16
-
-        # Append to the coefficient list if they are less than q
+    a = [0 for _ in range(256)]
+    print("B",B) 
+    i = 0   
+    j = 0
+    while j < 256:
+        d1 = B[i] + 256 * (B[i + 1] % 16)
+        d2 = (B[i + 1] // 16) + 16 * B[i + 2] 
         if d1 < q:
-            a.append(d1)
-        if d2 < q and len(a) < 256:  # Ensure we do not exceed 256 coefficients
-            a.append(d2)
+            a[j] = d1
+            j += 1
+        if d2 < q and j < 256:
+            a[j] = d1
+            j += 1
 
-        # Move to the next set of bytes
         i += 3
-
+    print("lennn",len(a))
     return a
 

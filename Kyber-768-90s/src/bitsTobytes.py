@@ -1,45 +1,21 @@
-def BitsToBytes(bits_array,width = 8):
+def BitsToBytes(bits_array, width=8):
     if len(bits_array) % width != 0:
-        raise ValueError("The length of bits_list must be a multiple of the specified width.")
-    result = []
+        raise ValueError("The length of bits_array must be a multiple of the specified width.")
 
-    for i in range(0, len(bits_array), width):
-     
-        result.append(bits_array[i:i + width])
+    result = [0] * (len(bits_array) // width)  
     
+    for i in range(len(bits_array)):
+        byte_index = i // width  
+        bit_value = bits_array[i]  
+        result[byte_index] += bit_value * (1 << (i % width))  
+
     return result
 
+bits_array = [
+    1, 0, 0, 1, 0, 0, 1, 0,
+    0, 0, 1, 1, 1, 0, 1, 1,
+    1, 0, 1, 1, 1, 0, 0, 1,
+]
 
-bits_array = [1, 0, 0, 1, 0, 0, 1, 0,
-              0, 0, 1, 1, 1, 0, 1, 1, 
-              1, 0, 1, 1, 1, 0, 0, 1, 
-              1, 0, 1, 0, 0, 0, 1, 1, 
-              0, 1, 0, 1, 0, 1, 1, 0,
-              0, 0, 0, 0, 1, 0, 1, 1, 
-              1, 1, 0, 0, 1, 1, 0, 0, 
-              0, 1, 1, 0, 0, 1, 1, 0, 
-              1, 0, 1, 1, 0, 1, 0, 1,
-              0, 0, 1, 0, 1, 0, 1, 1, 
-              1, 1, 1, 0, 0, 0, 1, 0, 
-              0, 1, 1, 1, 1, 0, 0, 1, 
-              1, 0, 0, 0, 1, 0, 1, 0, 
-              1, 1, 0, 1, 0, 1, 0, 0, 
-              0, 0, 1, 0, 1, 1, 0, 1, 
-              1, 1, 1, 1, 0, 0, 1, 0, 
-              0, 0, 1, 1, 0, 1, 1, 1, 
-              1, 0, 0, 1, 1, 0, 0, 1, 
-              1, 1, 0, 0, 1, 1, 0, 1, 
-              0, 0, 1, 0, 1, 1, 1, 0, 
-              1, 0, 1, 1, 0, 0, 1, 1, 
-              0, 1, 1, 0, 0, 1, 0, 1, 
-              1, 0, 1, 0, 0, 1, 1, 0, 
-              1, 1, 0, 0, 1, 0, 1, 0, 
-              0, 0, 1, 1, 0, 0, 1, 1, 
-              1, 0, 1, 1, 1, 1, 0, 0, 
-              0, 1, 1, 0, 1, 1, 0, 0, 
-              1, 0, 0, 0, 1, 1, 1, 1, 
-              0, 1, 0, 1, 1, 0, 1, 0, 
-              1, 1, 1, 0, 0, 1, 0, 1, 
-              0, 0, 0, 1, 1, 0, 0, 1, 
-              1, 1, 1, 1, 0, 1, 0, 0]  # This is the list of bits you have
 byte_array = BitsToBytes(bits_array)
+# print(byte_array)

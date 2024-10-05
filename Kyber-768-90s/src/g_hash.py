@@ -16,12 +16,6 @@ def _g(input_bytes):
     return sha512(input_bytes).digest()
 
 input_bytes = b'+\x86\xbfd\xd3\xf4\x14y\x06\x9a\\Y\x0f_\xff4'
-# print (_g(input_bytes))
-# flat_input_bytes = [item for sublist in input_bytes for item in sublist]
 
-# byte_input = bytes(flat_input_bytes)
-# binary_representation = ''.join(f'{byte:08b}' for byte in _g(byte_input))
-
-# rho, sigma = binary_representation[:256], binary_representation[256:]
 
 

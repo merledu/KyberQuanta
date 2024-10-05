@@ -1,20 +1,24 @@
-from hashlib import shake_256
+from Crypto.Cipher import AES
+from Crypto.Util import Counter
+import hashlib
+import os
 
-def XOF(input_value: bytes, output_length: int) -> bytes:
-    """
-    Simple implementation of an Extendable Output Function (XOF) using SHAKE256.
+def XOF(rho, i, j,output_length):
+    assert len(rho) == 32, "rho must be 32 bytes."
+    key = rho
+    nonce_input = bytes([i]) + bytes([j])
+    nonce = nonce_input.ljust(12, b'\x00')  
     
-    :param input_value: The input value as a byte string.
-    :param output_length: The desired length of the output in bytes.
-    :return: An extendable output of the specified length.
-    """
-    shake = shake_256()
-    shake.update(input_value)
+    ctr = Counter.new(32, prefix=nonce, initial_value=0, little_endian=False)
+    cipher = AES.new(key, AES.MODE_CTR, counter=ctr)
+    output = cipher.encrypt(b'\x00' * output_length)
     
-    # Generate an output of the specified length
-    return shake.digest(output_length)
+    return output
 
-# Example usage
-input_value = b'f\x8d\xf1\xc4\x92+\xe3j\xe9R\xe39Bw\xffB\x8b"\xa0I+\x07\xa7e\xb4UZ\x03\x7f\xdf\xb6\x0c.A\x08:o\xb1\xf0\xb7\xe3l\x11\xa4\x02+\xc5\xcfg\xbdt\x9c6\x17\xa2u\x8b\x06\x0eE4\xd7\xb8\xfb'
-output_length = 256  # Generate 32 bytes of output
-# print(XOF(input_value, output_length))
+rho = os.urandom(32)  
+i = 1 
+j = 2  
+
+output = XOF(rho, i, j,256)
+print(len(output))
+

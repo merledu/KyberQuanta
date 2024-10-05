@@ -14,7 +14,7 @@ def CBD(byte_array):
     n = 2
     j = 0
     f = []
-    for i in range(255):
+    for i in range(256):
         for j in range(n - 1):
             a = bit_array[(2 * i * n) + j]
             b = bit_array[(2 * i * n) + n + j]

@@ -4,16 +4,15 @@ from Crypto.Cipher import AES
 from Crypto.Util import Counter
 
 def PRF(sigma, N, output_len=32):
-    hashed_sigma = hashlib.sha256(sigma).digest()
+    assert len(sigma) == 32, "Sigma must be 32 bytes for AES-256."
+    nonce = N + b'\x00' * (12 - len(N))
+    ctr = Counter.new(32, prefix=nonce, initial_value=0, little_endian=False)
+    aes = AES.new(sigma, AES.MODE_CTR, counter=ctr)
+    print("AES",aes.encrypt(b'\x00' * output_len))
+    return aes.encrypt(b'\x00' * output_len)
 
-    ctr = Counter.new(128, initial_value=N)
+sigma = os.urandom(32)
+N = bytes([1]) 
 
-    aes = AES.new(hashed_sigma, AES.MODE_CTR, counter=ctr)
-    return aes.encrypt(b'00' * output_len).hex()
-    
-
-sigma = os.urandom(64)
-N = 1 
-
-# Generate pseudorandom output
-pseudorandom_output = PRF(sigma, N, output_len=64)  
+pseudorandom_output = PRF(sigma, N, output_len=256)  
+print("Pseudorandom Output:", len(pseudorandom_output))
