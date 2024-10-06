@@ -9,7 +9,7 @@ def construct_polynomial(coefficients):
     return polynomial
 
 def CBD(byte_array):
-    
+    # print("Byte",byte_array)
     bit_array = BytesToBits(byte_array)
     n = 2
     j = 0
@@ -19,5 +19,6 @@ def CBD(byte_array):
             a = bit_array[(2 * i * n) + j]
             b = bit_array[(2 * i * n) + n + j]
             f.append(a - b)
+    # print("f",f)
     polynomial = construct_polynomial(f)
     return polynomial, f

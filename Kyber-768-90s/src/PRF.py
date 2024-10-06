@@ -15,4 +15,4 @@ sigma = os.urandom(32)
 N = bytes([1]) 
 
 pseudorandom_output = PRF(sigma, N, output_len=256)  
-# print("Pseudorandom Output:", len(pseudorandom_output))
+# print("Pseudorandom Output:", pseudorandom_output)

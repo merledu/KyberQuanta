@@ -4,6 +4,7 @@ from xof import XOF
 from PRF import PRF
 from CBD import CBD
 from ntt import compute_ntt
+from ntt_inverse import inverse_ntt
 from parse import parse
 from g_hash import _g
 from ntt_multiplication import multiply_ntts
@@ -31,6 +32,7 @@ def kyber_cpapke_keygen():
     for i in range(k):  
         polynomial, coefficients = CBD(PRF(sigma, bytes([N]), output_len=256))  
         s[i] = coefficients
+        # print("check",s[i])
         N += 1
     
     for i in range(k):
@@ -41,6 +43,7 @@ def kyber_cpapke_keygen():
     e_hat = [None] * k
     for i in range (k):
         s_hat[i] = compute_ntt(s[i])
+       
         e_hat[i] = compute_ntt(e[i])
 
     t_hat = [[0] * n for _ in range(k)]  
