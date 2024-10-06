@@ -53,12 +53,13 @@ def kyber_cpapke_keygen():
              
     t_hat = [[(t_hat[i][j] + e_hat[i][j]) % q for j in range(len(t_hat[i]))] for i in range(len(t_hat))]
 
-    pk_temp = []
+    pk_temp = bytes(0)
     for i in range(k):
         pk_temp += Encode(t_hat[i], 12)
+        # print("pk--", pk_temp)
     
-    pk = pk_temp + list(rho)
-    sk = []
+    pk = pk_temp + rho
+    sk = bytes(0)
     for j in range(k):
         sk += Encode(s_hat[j], 12)  
     return pk, sk
