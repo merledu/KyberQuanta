@@ -57,4 +57,4 @@ f = np.random.randint(0, q, size=256).tolist()  # Generate random list for f
 g = np.random.randint(0, q, size=256).tolist()  # Generate random list for g
 
 h = multiply_ntts(f, g)  # Call multiply_ntts with lists
-print(h)  # Print the result list
+# print(h)  # Print the result list

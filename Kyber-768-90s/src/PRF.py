@@ -8,11 +8,11 @@ def PRF(sigma, N, output_len=32):
     nonce = N + b'\x00' * (12 - len(N))
     ctr = Counter.new(32, prefix=nonce, initial_value=0, little_endian=False)
     aes = AES.new(sigma, AES.MODE_CTR, counter=ctr)
-    print("AES",aes.encrypt(b'\x00' * output_len))
+    # print("AES",aes.encrypt(b'\x00' * output_len))
     return aes.encrypt(b'\x00' * output_len)
 
 sigma = os.urandom(32)
 N = bytes([1]) 
 
 pseudorandom_output = PRF(sigma, N, output_len=256)  
-print("Pseudorandom Output:", len(pseudorandom_output))
+# print("Pseudorandom Output:", len(pseudorandom_output))

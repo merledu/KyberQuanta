@@ -1,6 +1,6 @@
 def parse(q, B):
     a = [0 for _ in range(256)]
-    print("B",B) 
+    # print("B",B) 
     i = 0   
     j = 0
     while j < 256:
@@ -14,6 +14,6 @@ def parse(q, B):
             j += 1
 
         i += 3
-    print("lennn",len(a))
+    # print("lennn",len(a))
     return a
 

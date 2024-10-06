@@ -20,5 +20,5 @@ i = 1
 j = 2  
 
 output = XOF(rho, i, j,256)
-print(len(output))
+# print(len(output))
 
