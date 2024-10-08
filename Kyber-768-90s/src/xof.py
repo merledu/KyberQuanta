@@ -3,29 +3,21 @@ from Crypto.Util import Counter
 import hashlib
 import os
 
-def xof(rho, i, j):
-    key = hashlib.sha256(rho).digest()
+def XOF(rho, i, j,output_length):
+    assert len(rho) == 32, "rho must be 32 bytes."
+    key = rho
+    nonce_input = bytes([i]) + bytes([j])
+    nonce = nonce_input.ljust(12, b'\x00')  
     
-    #  nonce purpose is to ensure that each encryption operation produces unique ciphertexts
-    nonce_input = rho + bytes([i]) + bytes([j])
-    
-    nonce = nonce_input[:16].ljust(16, b'\x00')
-    
-    ctr = Counter.new(128, initial_value=int.from_bytes(nonce, byteorder='big'))
-
+    ctr = Counter.new(32, prefix=nonce, initial_value=0, little_endian=False)
     cipher = AES.new(key, AES.MODE_CTR, counter=ctr)
-
-    output_length = 64
     output = cipher.encrypt(b'\x00' * output_length)
     
     return output
 
+rho = os.urandom(32)  
+i = 1 
+j = 2  
 
-rho = os.urandom(32)   
-i = 42  
-j = 7   
-
-output = xof(rho, i, j)
-
-# print("Derived Key (hex):",output)
-# print("len",len(output.hex()))
+output = XOF(rho, i, j,256)
+# print(len(output))
