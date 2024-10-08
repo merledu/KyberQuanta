@@ -1,7 +1,7 @@
 module zeta_calculator #(parameter int ROOT_OF_UNITY = 17, parameter int Q = 3329, parameter int K = 7) (
-    input logic [K-1:0] idx,  
-    input logic clk,
-    input logic rst_n,         
+    // input logic [K-1:0] idx,  
+    // input logic clk,
+    // input logic rst_n,         
     output logic [15:0] zetas [127:0]  
 );
     logic [K-1:0] bit_rev_idx;         
@@ -31,7 +31,7 @@ module zeta_calculator #(parameter int ROOT_OF_UNITY = 17, parameter int Q = 332
             end
             temp_zeta = root_of_unity_pow[15:0]; 
             zetas[i] = temp_zeta;
-            $display("z",zetas[i]);
+            // $display("z",zetas[i]);
         end
     end
 endmodule

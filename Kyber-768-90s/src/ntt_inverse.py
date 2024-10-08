@@ -1,37 +1,37 @@
 
 "Referenced from FIPS-203"
-from bit_reversal import bit_reversal
+# from bit_reversal import bit_reversal
 import random
+from ntt import compute_ntt
 
-def inverse_ntt(f, q=3329):
-    
-    n = 256
-    zetas = [pow(17, bit_reversal(i, 7), q) for i in range(128)] 
-    inv_f = 3303  # Inverse of 128 modulo 3329
-    f_hat = f[:]
-    i = 127
-    length = 2
-    while length <= 128:
+def bit_reversal(i, k):
+    bin_i = bin(i & (2**k - 1))[2:].zfill(k)
+    return int(bin_i[::-1], 2)
+
+def inverse_ntt(coeffs):
+    q = 3329
+    l, l_upper = 2, 128
+    k = l_upper - 1
+    zetas = [pow(17, bit_reversal(i, 7), q) for i in range(128)]
+    while l <= 128:
         start = 0
-        while start < n:
-            zeta = zetas[i] 
-            i -= 1
-            for j in range(start, start + length):
-                t = f_hat[j]
-                f_hat[j] = (t + f_hat[j + length]) % q  # f[j] = (t + f[j + len]) % q
-                f_hat[j + length] = (zeta * (f_hat[j + length] - t)) % q  # f[j + len] = zeta * (f[j + len] - t)
+        while start < 256:
+            zeta = zetas[k]
+            k = k - 1
+            for j in range(start, start + l):
+                t = coeffs[j]
+                coeffs[j] = t + coeffs[j + l]
+                coeffs[j + l] = (coeffs[j + l] - t) 
+                coeffs[j + l] = (zeta * coeffs[j + l]) % q
+            start = j + l + 1
+        l = l << 1
 
-            start += 2 * length
+    f = 3303
+    for j in range(256):
+        coeffs[j] = (coeffs[j] * f) % 3329
+        if coeffs[j] == 3328: 
+            coeffs[j] = -1
 
-        length *= 2
-
-    for j in range(n):
-        f_hat[j] = (f_hat[j] * inv_f) % q
-
-    return f_hat
+    return coeffs
 
 
-#driverscode
-f_ntt = [random.randint(0, 3328) for _ in range(256)] 
-f_inverse_ntt = inverse_ntt(f_ntt)
-print(f_inverse_ntt)

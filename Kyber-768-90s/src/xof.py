@@ -27,4 +27,5 @@ j = 7
 
 output = xof(rho, i, j)
 
-print("Derived Key (hex):",output.hex())
+# print("Derived Key (hex):",output)
+# print("len",len(output.hex()))

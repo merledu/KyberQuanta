@@ -14,4 +14,4 @@ sigma = os.urandom(32)
 N = 1 
 
 pseudorandom_output = PRF(sigma, N, output_len=64)  
-print(pseudorandom_output.hex())
+print(pseudorandom_output)
