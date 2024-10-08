@@ -3,7 +3,9 @@ import numpy as np
 from RandomCipherText import  generate_ciphertext
 from RandomSecretKey import generate_secret_key    
 from DecryptionAlgo6 import DecryptAlgo6
-
+from g_hash import _g
+from h_hash import _h
+from kdf import kdf
 
 def DecryptAlgo9():
     k = 3
@@ -20,8 +22,21 @@ def DecryptAlgo9():
 
     m = DecryptAlgo6()
 
+    _k,r = _g(m + h)
 
-    return m
+    _c = "encryption code"
+
+    _H = _h(c)
+
+    if c == _c:
+         K = kdf(_k + _H)
+    else:
+         K = kdf(z + _H)
+         
+
+
+
+    return K
 
 
 

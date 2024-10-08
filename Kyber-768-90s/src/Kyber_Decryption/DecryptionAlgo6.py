@@ -12,8 +12,8 @@ from bitsTobytes import bits_to_bytes
 from ntt_multiplication import multiply_ntts
 
 def DecryptAlgo6():
-    du = 11
-    dv = 5
+    du = 10
+    dv = 4
     k = 3
     n = 256
 
@@ -121,7 +121,7 @@ def DecryptAlgo6():
 
     # m = Encode(compressQ)
 
-    return d2
+    # return d2
 
     
     # return None
