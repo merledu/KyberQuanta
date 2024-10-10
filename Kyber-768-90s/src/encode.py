@@ -15,4 +15,4 @@ def Encode(F, d):
 F = [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0] + [0] * 240  
 d = 12 
 byte_array = Encode(F, d)
-print(byte_array) 
+print(len(byte_array))
