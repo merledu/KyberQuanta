@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./Kyber-768-90s/src"
+    ]
+}

@@ -42,4 +42,4 @@ b =  [
 ]
 
 
-print(BytesToBits(b))
+# print(BytesToBits(b))

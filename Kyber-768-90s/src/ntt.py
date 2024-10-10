@@ -7,38 +7,36 @@ Original file is located at
     https://colab.research.google.com/drive/1WV3iSHzcwu7SxZh6fAVrkkHMbCCX8TIG
 """
 
-#Referenced from FIPS-203
 import random
-from bit_reversal import bit_reversal
+def bit_reversal(i, k):
+    bin_i = bin(i & (2**k - 1))[2:].zfill(k)
+    return int(bin_i[::-1], 2)
 
-def compute_ntt(f, q=3329):
+def compute_ntt(coeffs):
+    """
+    Convert a polynomial to number-theoretic transform (NTT) form.
+    The input is in standard order, the output is in bit-reversed order.
+    """
+    q=3329
     n = 256
-    root_of_unity = 17
+    l = 128
+    k = 1
+    zetas = [pow(17, bit_reversal(i, 7), q) for i in range(128)]
 
-    zetas = [pow(root_of_unity, bit_reversal(i, 7), q) for i in range(128)]
-
-    f_hat = f[:]
-
-    i = 1
-    length = 128
-
-    while length >= 2:
+    # Perform the NTT transformation
+    while l >= 2:
         start = 0
         while start < n:
-            zeta = zetas[i - 1]
-            i += 1
-            for j in range(start, start + length):
-                t = (zeta * f_hat[j + length]) % q
-                f_hat[j + length] = (f_hat[j] - t) % q
-                f_hat[j] = (f_hat[j] + t) % q
-            start += 2 * length
-        length //= 2
+            zeta = zetas[k]
+            k += 1
+            for j in range(start, start + l):
+                t = (zeta * coeffs[j + l]) % q
+                coeffs[j + l] = (coeffs[j] - t) % q
+                coeffs[j] = (coeffs[j] + t) % q 
+            start = l + (j +1)
+        l = l >> 1
 
-    return f_hat
-
-#driverscode
-f = [random.randint(0, 5000) for _ in range(256)]
-print("f",f)
-f_ntt = compute_ntt(f)
-print(f_ntt)
-print(len(f_ntt))
+    # Ensure the coefficients are in range [0, q)
+    for j in range(n):
+        coeffs[j] %= q
+    return coeffs
