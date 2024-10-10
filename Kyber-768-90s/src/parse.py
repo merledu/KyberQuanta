@@ -1,6 +1,5 @@
 def parse(q, B):
     a = [0 for _ in range(256)]
-    # print("B",B) 
     i = 0   
     j = 0
     while j < 256:
@@ -10,9 +9,11 @@ def parse(q, B):
             a[j] = d1
             j += 1
         if d2 < q and j < 256:
-            a[j] = d1
+            a[j] = d2
             j += 1
-
         i += 3
-    # print("lennn",len(a))
     return a
+q = 3329  
+B = [i % 3329 for i in range(768)] 
+result = parse(q, B)
+print("Result:", result)
