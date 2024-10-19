@@ -1,46 +1,18 @@
-def BitsToBytes(bits_array,width = 8):
-    if len(bits_array) % width != 0:
-        raise ValueError("The length of bits_list must be a multiple of the specified width.")
-    result = []
+import os
 
-    for i in range(0, len(bits_array), width):
-     
-        result.append(bits_array[i:i + width])
+def bytes_to_bits(B):
+    bit_array = [0] * (len(B) * 8)  
+    B = list(B)
+
+    for i in range(len(B)):
+        for j in range(8):
+            bit_array[8 * i + j] = B[i] % 2 
+            B[i] =  B[i] //2  
     
-    return result
+    return bit_array
 
 
-bits_array = [1, 0, 0, 1, 0, 0, 1, 0,
-              0, 0, 1, 1, 1, 0, 1, 1, 
-              1, 0, 1, 1, 1, 0, 0, 1, 
-              1, 0, 1, 0, 0, 0, 1, 1, 
-              0, 1, 0, 1, 0, 1, 1, 0,
-              0, 0, 0, 0, 1, 0, 1, 1, 
-              1, 1, 0, 0, 1, 1, 0, 0, 
-              0, 1, 1, 0, 0, 1, 1, 0, 
-              1, 0, 1, 1, 0, 1, 0, 1,
-              0, 0, 1, 0, 1, 0, 1, 1, 
-              1, 1, 1, 0, 0, 0, 1, 0, 
-              0, 1, 1, 1, 1, 0, 0, 1, 
-              1, 0, 0, 0, 1, 0, 1, 0, 
-              1, 1, 0, 1, 0, 1, 0, 0, 
-              0, 0, 1, 0, 1, 1, 0, 1, 
-              1, 1, 1, 1, 0, 0, 1, 0, 
-              0, 0, 1, 1, 0, 1, 1, 1, 
-              1, 0, 0, 1, 1, 0, 0, 1, 
-              1, 1, 0, 0, 1, 1, 0, 1, 
-              0, 0, 1, 0, 1, 1, 1, 0, 
-              1, 0, 1, 1, 0, 0, 1, 1, 
-              0, 1, 1, 0, 0, 1, 0, 1, 
-              1, 0, 1, 0, 0, 1, 1, 0, 
-              1, 1, 0, 0, 1, 0, 1, 0, 
-              0, 0, 1, 1, 0, 0, 1, 1, 
-              1, 0, 1, 1, 1, 1, 0, 0, 
-              0, 1, 1, 0, 1, 1, 0, 0, 
-              1, 0, 0, 0, 1, 1, 1, 1, 
-              0, 1, 0, 1, 1, 0, 1, 0, 
-              1, 1, 1, 0, 0, 1, 0, 1, 
-              0, 0, 0, 1, 1, 0, 0, 1, 
-              1, 1, 1, 1, 0, 1, 0, 0]  # This is the list of bits you have
-byte_array = BitsToBytes(bits_array)
-print(byte_array)
+B = os.urandom(32)  
+bytearray = bytes_to_bits(B)
+print(len(bytearray))
+print(bytearray)
