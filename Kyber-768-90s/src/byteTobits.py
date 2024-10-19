@@ -1,45 +1,22 @@
-import math
+import os
 
-def BytesToBits(byte_array):
-    bits_array = []
-    for i in range(8 * len(byte_array)):
-            bits_array.append(math.ceil(byte_array[i//8][i%8] / (2 ** (i % 8))) % 2)
-    return bits_array
-     
-b =  [
-    [1, 0, 0, 1, 0, 0, 1, 0],
-    [0, 0, 1, 1, 1, 0, 1, 1],
-    [1, 0, 1, 1, 1, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1],
-    [0, 1, 0, 1, 0, 1, 1, 0],
-    [0, 0, 0, 0, 1, 0, 1, 1],
-    [1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0],
-    [1, 0, 1, 1, 0, 1, 0, 1],
-    [0, 0, 1, 0, 1, 0, 1, 1],
-    [1, 1, 1, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 0, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 0],
-    [1, 1, 0, 1, 0, 1, 0, 0],
-    [0, 0, 1, 0, 1, 1, 0, 1],
-    [1, 1, 1, 1, 0, 0, 1, 0],
-    [0, 0, 1, 1, 0, 1, 1, 1],
-    [1, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 0, 0, 1, 1, 0, 1],
-    [0, 0, 1, 0, 1, 1, 1, 0],
-    [1, 0, 1, 1, 0, 0, 1, 1],
-    [0, 1, 1, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 1, 1, 0],
-    [1, 1, 0, 0, 1, 0, 1, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1],
-    [1, 0, 1, 1, 1, 1, 0, 0],
-    [0, 1, 1, 0, 1, 1, 0, 0],
-    [1, 0, 0, 0, 1, 1, 1, 1],
-    [0, 1, 0, 1, 1, 0, 1, 0],
-    [1, 1, 1, 0, 0, 1, 0, 1],
-    [0, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1, 0, 0]
-]
+def bytes_to_bits(B):
+    bit_array = [0] * (len(B) * 8)  # Initialize a flat array with the correct size
 
+    # Convert bytes object to a list of integers
+    B = list(B)
 
-# print(BytesToBits(b))
+    # Outer loop: Iterate over each byte in B
+    for i in range(len(B)):
+        # Inner loop: Extract 8 bits from each byte, starting with LSB
+        for j in range(8):
+            bit_array[8 * i + j] = B[i] % 2  # Extract least significant bit
+            B[i] =  B[i] //2  # Divide by 2 to shift right (to get the next bit)
+    
+    return bit_array
+
+# Example usage
+B = os.urandom(32)  # Generates 32 random bytes
+bytearray = bytes_to_bits(B)
+print(len(bytearray))
+print(bytearray)

@@ -86,10 +86,7 @@ def encryption(pk,m,r):
     for i in range(k):
         r_hat[i] = compute_ntt(r[i])
 
-    m = [None] * k    
-    for i in range(k):
-        m[i] = multiply_ntts(T_hat[i], r_hat[i])
-    print("m",len(m[0]))
+    
 
     def matrix_multiply_ntt(A, B):
         m = len(A)
@@ -118,6 +115,11 @@ def encryption(pk,m,r):
     for i in range(k):
             
             u[i] = [(u[i][idx] + e1[i][idx]) % q for idx in range(256)]
+    
+    m = [None] * k    
+    for i in range(k):
+        m[i] = multiply_ntts(T_hat[i], r_hat[i])
+    
 
     m1 = [None]*k
     for i in range(k):
@@ -133,15 +135,12 @@ def encryption(pk,m,r):
             for l in range(256):
                 Compress_u[i][l]=(compress(u[i][l], 10))
 
-    print("Length of Compress_u:", len(Compress_u)) 
-    print("Length of Decompress:", len(Decompress)) 
-
     v = [None for _ in range(k * 256)]
     for i in range(k):
         for j in range(256):
             v[i * 256 + j] = (m1[i][j] + e2[j] + Decompress[j])
 
-    print("v", len(v)) 
+   
 
     compress_v = [None for _ in range(k * 256)]
     for j in range(k):
@@ -159,9 +158,9 @@ def encryption(pk,m,r):
     
     c2 = bytes(Encode(compress_v, 4))
     c = bytes(c1 + c2)
-    print("c1",type(c1))
-    print("C2",type(c2))
-    print("c",type(c))
+    print("C1",len(c1))
+    print("C2",len(c2))
+    print("C",len(c))
 
     return c 
 pk = generate_public_key(k, n)
