@@ -7,8 +7,8 @@ from decompress import decompress
 from ntt import compute_ntt
 from ntt_inverse import inverse_ntt
 from compress import compress
-from encode import encode
-from bitsTobytes import bits_to_bytes
+from encode import Encode
+from bitstobytes import bits_to_bytes
 from ntt_multiplication import multiply_ntts
 
 def DecryptAlgo6():
@@ -87,8 +87,7 @@ def DecryptAlgo6():
         compres.append(com)
     # print(compres)
 
-
-    m = encode(compres)
+    m = Encode(compres,ell)
 
     print(m)
 
@@ -127,5 +126,5 @@ def DecryptAlgo6():
     # return None
 
 a = DecryptAlgo6()
-# print(a)
+# print(a.hex())
 # print(" + ".join(f"{a}X^{i}" for i, coeff in enumerate(a)))

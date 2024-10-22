@@ -15,4 +15,4 @@ def kdf(input_data):
 
 input_secret = "KyberQuanta" 
 derived_key = kdf(input_secret)
-print("Derived Key (hex):", derived_key.hex())
+# print("Derived Key (hex):", derived_key.hex())
