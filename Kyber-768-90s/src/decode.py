@@ -1,6 +1,6 @@
 from byteTobits import BytesToBits
 
-def Decode(byte_array, ell=8):
+def Decode(byte_array, ell=1):
     """ Decode a byte array into a polynomial with coefficients. """
     bits = BytesToBits(byte_array)
     
