@@ -1,9 +1,10 @@
-from byteTobits import BytesToBits
+from byteTobits import bytes_to_bits
+import os
 
 def Decode(byte_array, d):
 
     # Step 1: Convert byte array to bits
-    bits = BytesToBits(byte_array)
+    bits = bytes_to_bits(byte_array)
     
     # Step 2: Set the modulus m based on the value of d
     if d == 12:
@@ -27,39 +28,6 @@ def Decode(byte_array, d):
     return coeffs
     
 # Example: Extend the byte array to include more bytes
-byte_array = [
-    [1, 0, 0, 1, 0, 0, 1, 0],
-    [0, 0, 1, 1, 1, 0, 1, 1],
-    [1, 0, 1, 1, 1, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1],
-    [0, 1, 0, 1, 0, 1, 1, 0],
-    [0, 0, 0, 0, 1, 0, 1, 1],
-    [1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0],
-    [1, 0, 1, 1, 0, 1, 0, 1],
-    [0, 0, 1, 0, 1, 0, 1, 1],
-    [1, 1, 1, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 0, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 0],
-    [1, 1, 0, 1, 0, 1, 0, 0],
-    [0, 0, 1, 0, 1, 1, 0, 1],
-    [1, 1, 1, 1, 0, 0, 1, 0],
-    [0, 0, 1, 1, 0, 1, 1, 1],
-    [1, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 0, 0, 1, 1, 0, 1],
-    [0, 0, 1, 0, 1, 1, 1, 0],
-    [1, 0, 1, 1, 0, 0, 1, 1],
-    [0, 1, 1, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 1, 1, 0],
-    [1, 1, 0, 0, 1, 0, 1, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1],
-    [1, 0, 1, 1, 1, 1, 0, 0],
-    [0, 1, 1, 0, 1, 1, 0, 0],
-    [1, 0, 0, 0, 1, 1, 1, 1],
-    [0, 1, 0, 1, 1, 0, 1, 0],
-    [1, 1, 1, 0, 0, 1, 0, 1],
-    [0, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1, 0, 0]
-]
+byte_array = b'I\x8b\x0b\xff\xfe\xce\xb3\xc5l\xe7\x1e\x8b\xa4oa\xef\x07\xcd*\xcdF\x16X\xbe\xca\xaeY\xa2xP\xa1\xa4'
 coeffi = Decode(byte_array, 8)
 print(coeffi )
