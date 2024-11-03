@@ -1,20 +1,23 @@
-from bitsTobytes import BitsToBytes
-def Encode(F, d):
-    if not (1 <= d <= 12):
-        raise ValueError("d must be in the range 1 to 12")
-    m = 2 ** d if d < 12 else 256  
-    b = 0 
+from  bitsTobytes import bits_to_bytes
+
+def byte_encoded(F, d):
+
+    b = [0] * (256 * d)
+
     for i in range(256):
-        a = F[i] 
-        for j in range(d):
-            b |= (a % 2) << (i * d + j)
-            a = (a - (a % 2)) // 2  
+        a = F[i]  
+        for j in range(d): 
 
-    B = b.to_bytes((256 * d + 7) // 8, "little")  
+            b[i * d + j] = a % 2
+            a = (a - b[i * d + j]) // 2
+
+    B = bits_to_bytes(b, 32 * d)  
+
     return B
-
-F = [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0] + [0] * 240  
-d = 12 
-byte_array = Encode(F, d)
-# print(byte_array) 
-# print(len(byte_array))
+F = []
+for i in range(256):
+    F.append(i)
+print("F",F)
+d = 8 
+byte_array = byte_encoded(F, d)
+print(byte_array)
