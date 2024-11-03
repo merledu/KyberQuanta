@@ -1,24 +1,12 @@
-from byteTobits import BytesToBits
+import math
 
-def Decode(byte_array, ell=1):
-    """ Decode a byte array into a polynomial with coefficients. """
-    bits = BytesToBits(byte_array)
-    
-
-    coeffs = [0] * 256
-    
-    for i in range(256):
-        coeff_value = 0
-        for j in range(ell):
-            bit_index = i * ell + j
-            if bit_index < len(bits):
-                coeff_value += bits[bit_index] * (2 ** j)
-        coeffs[i] = coeff_value
-
-    return coeffs
-
-# Example byte array
-byte_array = [
+def BytesToBits(byte_array):
+    bits_array = []
+    for i in range(8 * len(byte_array)):
+            bits_array.append(math.ceil(byte_array[i//8][i%8] / (2 ** (i % 8))) % 2)
+    return bits_array
+     
+b =  [
     [1, 0, 0, 1, 0, 0, 1, 0],
     [0, 0, 1, 1, 1, 0, 1, 1],
     [1, 0, 1, 1, 1, 0, 0, 1],
@@ -54,7 +42,4 @@ byte_array = [
 ]
 
 
-coeffs = Decode(byte_array)
-
-
-print(" + ".join(f"{coeff}X^{i}" for i, coeff in enumerate(coeffs)))
+# print(BytesToBits(b))
