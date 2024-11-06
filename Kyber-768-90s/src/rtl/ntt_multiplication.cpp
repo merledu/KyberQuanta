@@ -1,48 +1,28 @@
-import numpy as np
+#include "Vntt_multiplication.h"  // Verilated header for the ntt_multiplication module
+#include "verilated.h"
+#include "verilated_vcd_c.h"       // Header for VCD tracing
+#include <iostream>
+#include <vector>
+#include <cstdint>
 
-def base_case_multiply(a0, a1, b0, b1, gamma):
-    print(a0)
-    print(b0)
-    c0 = (a0 * b0 + a1 * b1 * gamma) % q  
-    c1 = (a0 * b1 + a1 * b0) % q        
-    return c0, c1
+int main(int argc, char** argv) {
+    Verilated::commandArgs(argc, argv);
 
-def multiply_ntts(f, g):
-    zetas = np.array([
-        2285, 933, 2478, 2455, 344, 2191, 1848, 1089,
-        1857, 694, 1300, 3101, 1180, 105, 1805, 165,
-        2133, 3240, 1979, 1710, 196, 1176, 240, 1324,
-        2176, 2640, 555, 788, 2787, 1233, 445, 3022,
-        1896, 2141, 1057, 2231, 1224, 412, 1983, 199,
-        2361, 1005, 1797, 132, 233, 2941, 3095, 1468,
-        3062, 1835, 1704, 729, 2461, 271, 2395, 1165,
-        524, 113, 2973, 2147, 251, 3057, 771, 3059,
-        1350, 1187, 1512, 2183, 253, 2037, 1994, 2557,
-        1971, 3111, 193, 2167, 3085, 1585, 3086, 3082,
-        2898, 1787, 1326, 808, 3128, 1259, 2225, 2038,
-        116, 182, 2929, 1376, 1494, 1284, 2491, 1715,
-        264, 1840, 2302, 2044, 336, 1501, 1152, 3158,
-        1245, 1727, 2565, 1385, 3080, 2202, 566, 2584,
-        1042, 2483, 1303, 313, 1775, 2421, 1729, 1383,
-        1091, 2105, 1508, 1713, 2468, 1238, 2470, 1491
-    ])
-    h = np.zeros(256, dtype=int) 
+    // Create an instance of the Verilated module
+    Vntt_multiplication* ntts = new Vntt_multiplication;
 
-    for i in range(128):
-        h[2 * i], h[2 * i + 1] = base_case_multiply(
-            f[2 * i], f[2 * i + 1],
-            g[2 * i], g[2 * i + 1],
-            zetas[i] 
-        )
-    return h
-def bit_reversal(i, k):
-    bin_i = bin(i & (2**k - 1))[2:].zfill(k)
-    return int(bin_i[::-1], 2)
+    // Enable tracing
+    Verilated::traceEverOn(true);  // Turn on tracing
+    VerilatedVcdC* tfp = new VerilatedVcdC;
+    ntts->trace(tfp, 99);           // Trace all signals with full depth
+    tfp->open("ntt_multiplication.vcd");  // Open the VCD file
 
-#driverscode
-q = 3329  
-f = np.array([
-    245, 1023, 3100, 201, 2764, 678, 1455, 2730, 3072, 160, 1340, 2220, 2789, 189, 2556, 1583,
+    // Modulus q
+    uint16_t q = 3329;
+
+    // Example input polynomials f and g with 256 values each
+    uint16_t f[256] = {
+        245, 1023, 3100, 201, 2764, 678, 1455, 2730, 3072, 160, 1340, 2220, 2789, 189, 2556, 1583,
     2598, 173, 1403, 2984, 1600, 1814, 2887, 2054, 920, 2965, 1594, 1472, 3302, 482, 935, 3079,
     1165, 2711, 1153, 2881, 764, 191, 1763, 3102, 2165, 1459, 802, 2279, 1401, 1500, 293, 2821,
     1925, 1706, 2890, 1832, 1603, 987, 1827, 3218, 249, 2876, 1107, 2446, 3013, 140, 1225, 2740,
@@ -58,10 +38,10 @@ f = np.array([
     1846, 1569, 3115, 2517, 1912, 2794, 2834, 2494, 1065, 2878, 2623, 3286, 2442, 2922, 1969, 3225,
     1261, 1049, 2006, 1737, 1764, 2913, 2717, 1481, 2815, 1330, 2212, 1768, 2635, 2898, 3247, 3200,
     1303, 1208, 2019, 1667, 1095, 2869, 3274, 1810, 2763, 3067, 2271, 1772, 1155, 2109, 2370, 1780
-])
+    };
 
-g = np.array([
-    1864, 1825, 1512, 1255, 2094, 2921, 142, 2191, 994, 2510, 104, 1819, 2311, 1151, 144, 1430,
+    uint16_t g[256] = {
+        1864, 1825, 1512, 1255, 2094, 2921, 142, 2191, 994, 2510, 104, 1819, 2311, 1151, 144, 1430,
     2322, 843, 1872, 2734, 1621, 823, 243, 2382, 2998, 2268, 1582, 2475, 2238, 2837, 3119, 2677,
     1699, 2345, 1157, 2314, 1376, 1243, 2194, 1184, 2756, 2812, 1156, 3092, 1462, 289, 121, 2560,
     2489, 1992, 2153, 2119, 2067, 1575, 1753, 1724, 145, 3328, 2053, 2702, 1304, 1812, 2434, 1560,
@@ -77,7 +57,36 @@ g = np.array([
     2931, 1412, 1785, 1769, 3077, 3202, 3126, 3260, 2809, 1906, 3264, 1983, 1789, 1620, 2648, 1718,
     1577, 2918, 1474, 2186, 1418, 1127, 2189, 1198, 1491, 1365, 2849, 1841, 1483, 3069, 2525, 2456,
     2936, 2017, 3015, 3174, 2482, 1518, 2559, 1741, 2024, 2422, 3062, 1168, 2874, 1388, 1383, 2747
-])
+    };
 
-hello = multiply_ntts(f, g)
-print(hello)
+    // Set the input values in the Verilator model
+    for (int i = 0; i < 256; i++) {
+        ntts->f[i] = f[i];
+        ntts->g[i] = g[i];
+    }
+
+    ntts->q = q;
+
+    // Evaluate the model
+    ntts->eval();
+    tfp->dump(0);  // Dump the initial state at time 0
+
+    // Advance time to capture signal changes (simulate each clock cycle if necessary)
+    for (int i = 1; i <= 10; i++) {
+        ntts->eval();
+        tfp->dump(i);  // Dump each evaluation state to the VCD file
+    }
+
+    // Output the results
+    std::cout << "Resulting polynomial h:" << std::endl;
+    for (int i = 0; i < 256; i++) {
+        std::cout << "h[" << i << "] = " << ntts->h[i] << std::endl;
+    }
+
+    // Clean up
+    tfp->close();   // Close the VCD file
+    delete tfp;
+    delete ntts;
+
+    return 0;
+}
