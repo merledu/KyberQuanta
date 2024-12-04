@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module bytes_to_bits #(
     parameter BYTE_COUNT = 256,          
     parameter BIT_COUNT = BYTE_COUNT * 8 

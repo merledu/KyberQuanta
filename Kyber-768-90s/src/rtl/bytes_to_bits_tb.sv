@@ -1,81 +1,62 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/28/2024 12:20:03 AM
-// Design Name: 
-// Module Name: bytes_to_bits
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
 
 module tb_bytes_to_bits;
 
-    // Parameters
-    localparam LEN = 32;
+    localparam BYTE_COUNT = 256; 
+    localparam BIT_COUNT = BYTE_COUNT * 8;
 
-    // Inputs to DUT
-    logic [7:0] B [LEN-1:0]; // Unpacked array
-    logic [7:0] len;
+    logic [7:0] B [0:BYTE_COUNT-1]; 
+    logic [$clog2(BYTE_COUNT):0] len; 
+    logic [BIT_COUNT-1:0] b; 
 
-    // Outputs from DUT
-    logic  [LEN*8-1:0] b; // Unpacked array
-
-    // DUT instantiation
-    bytes_to_bits uut (
+    bytes_to_bits #(
+        .BYTE_COUNT(BYTE_COUNT),
+        .BIT_COUNT(BIT_COUNT)
+    ) uut (
         .B(B),
         .len(len),
         .b(b)
     );
-
-    // Test Variables
-    logic [7:0] input_array [LEN-1:0]; // Unpacked array for readability
-    
+    logic [7:0] test_data [0:BYTE_COUNT-1]; 
+    integer i; 
 
     initial begin
-        // Initialize inputs
-        len = LEN;
+        $display("Starting Test Case 1...");
+        len = 256; // Set length to 256 to produce 2048 bits
 
-        // Sample Input Data
-        input_array = '{
-            8'hFF, 8'h00, 8'hEF, 8'h01, 8'hFF, 8'hFF, 8'h67, 8'h89,
-            8'h00, 8'hFF, 8'h55, 8'hAA, 8'h7E, 8'h5A, 8'h3C, 8'h1E,
-            8'hFF, 8'h0F, 8'h33, 8'h77, 8'h11, 8'h22, 8'h44, 8'h88,
-            8'h99, 8'hEE, 8'hDD, 8'hCC, 8'hBB, 8'hAA, 8'h77, 8'hFF
-        };
-
-        // Assign input values to the DUT
-        for (int i = 0; i < LEN; i++) begin
-            B[i] = input_array[i];
+        for (i = 0; i < BYTE_COUNT; i++) begin
+            test_data[i] = (i < 256) ? i : 8'h00; 
         end
 
-        // Wait for evaluation
-        #10;
-
-      
-
-        // Print the output bit array in the desired format
-        $display("Output:");
-        for (int i = 0; i < LEN * 8; i++) begin
-            $write("%b, ", b[i]);
+        for (i = 0; i < BYTE_COUNT; i++) begin
+            B[i] = test_data[i];
         end
-        $display(""); // Newline for better formatting
 
-       
+        $display("Input Byte Array:");
+        for (i = 0; i < len; i++) begin
+            $write("B[%0d] = %h ", i, B[i]);
+            if (i % 8 == 7) $display(""); 
+        end
+        $display("");
 
-        $display("Test Passed!");
+        #1; 
+        $display("Output Bit Array Length: %0d bits", len * 8);
+
+        $display("Output Bit Array:");
+        for (i = 0; i < len * 8; i++) begin
+            $write("%b", b[i]);
+            if (i % 8 == 7) $write(" "); 
+            if (i % 64 == 63) $display(""); 
+        end
+        $display("");
+        $display("Validating output...");
+        for (i = 0; i < len; i++) begin
+            if (b[i*8 +: 8] !== test_data[i]) begin
+                $fatal("Mismatch at byte %0d: Expected %0h, Got %0h", i, test_data[i], b[i*8 +: 8]);
+            end
+        end
+        $display("Test Case 1 Passed!");
+
         $finish;
     end
 
