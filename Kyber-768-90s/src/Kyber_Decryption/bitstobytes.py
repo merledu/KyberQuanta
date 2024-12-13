@@ -22,4 +22,4 @@ def bits_to_bytes(bits: list[int]) -> bytes:
 # Example usage
 bits = [1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0]  # Example bits list
 converted_bytes = bits_to_bytes(bits)
-# print(converted_bytes)
+print(converted_bytes)

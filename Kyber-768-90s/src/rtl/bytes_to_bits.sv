@@ -15,7 +15,7 @@ module bytes_to_bits #(
         
         for (i = 0; i < len && i < BYTE_COUNT; i++) begin
             for (j = 0; j < 8; j++) begin
-                b[8 * i + j] = B[i][j]; // Assign each bit from B to b
+                b[8 * i + j] = B[i][j]; 
             end
         end
     end
