@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 module bits_to_bytes #(
-    parameter BIT_LENGTH = 256, 
+    parameter BIT_LENGTH = 2048, 
     parameter BYTE_LENGTH = BIT_LENGTH / 8
 ) (
     input  logic [BIT_LENGTH-1:0] bit_array,

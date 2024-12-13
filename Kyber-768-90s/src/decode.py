@@ -1,60 +1,24 @@
-from byteTobits import BytesToBits
+import os
+from  byteTobits import bytes_to_bits
 
-def Decode(byte_array, ell=1):
-    """ Decode a byte array into a polynomial with coefficients. """
-    bits = BytesToBits(byte_array)
+def compute_integer_array(B, d):
     
+    assert len(B) == 32 * d, "Input byte array must have size 32d."
 
-    coeffs = [0] * 256
-    
+    m = 2 ** d 
+
+    b = bytes_to_bits(B)
+
+    F = [0] * 256
+
     for i in range(256):
-        coeff_value = 0
-        for j in range(ell):
-            bit_index = i * ell + j
-            if bit_index < len(bits):
-                coeff_value += bits[bit_index] * (2 ** j)
-        coeffs[i] = coeff_value
+        F[i] = sum(b[i * d + j] * (2 ** j) for j in range(d)) % m
 
-    return coeffs
+    return F
 
-# Example byte array
-byte_array = [
-    [1, 0, 0, 1, 0, 0, 1, 0],
-    [0, 0, 1, 1, 1, 0, 1, 1],
-    [1, 0, 1, 1, 1, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1],
-    [0, 1, 0, 1, 0, 1, 1, 0],
-    [0, 0, 0, 0, 1, 0, 1, 1],
-    [1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 1, 1, 0, 0, 1, 1, 0],
-    [1, 0, 1, 1, 0, 1, 0, 1],
-    [0, 0, 1, 0, 1, 0, 1, 1],
-    [1, 1, 1, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 0, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 0],
-    [1, 1, 0, 1, 0, 1, 0, 0],
-    [0, 0, 1, 0, 1, 1, 0, 1],
-    [1, 1, 1, 1, 0, 0, 1, 0],
-    [0, 0, 1, 1, 0, 1, 1, 1],
-    [1, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 0, 0, 1, 1, 0, 1],
-    [0, 0, 1, 0, 1, 1, 1, 0],
-    [1, 0, 1, 1, 0, 0, 1, 1],
-    [0, 1, 1, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 1, 1, 0],
-    [1, 1, 0, 0, 1, 0, 1, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1],
-    [1, 0, 1, 1, 1, 1, 0, 0],
-    [0, 1, 1, 0, 1, 1, 0, 0],
-    [1, 0, 0, 0, 1, 1, 1, 1],
-    [0, 1, 0, 1, 1, 0, 1, 0],
-    [1, 1, 1, 0, 0, 1, 0, 1],
-    [0, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1, 0, 0]
-]
+# Example usage
+d = 12
+B = os.urandom(32 * d) 
 
-
-coeffs = Decode(byte_array)
-
-
-print(" + ".join(f"{coeff}X^{i}" for i, coeff in enumerate(coeffs)))
+F = compute_integer_array(B, d)
+print(F)
