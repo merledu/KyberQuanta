@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module base_case_multiply(
     input logic [15:0] a0,      
     input logic [15:0] a1,      
@@ -9,26 +11,26 @@ module base_case_multiply(
 );
 
     // Temporary 32-bit variables for intermediate calculations
-    logic [31:0] temp_c0;
-    logic [31:0] temp_c1;
-    logic [31:0] temp_mod_c0;
-    logic [31:0] temp_mod_c1;
-    logic [15:0] mod_c0;
-    logic [15:0] mod_c1;
+    logic [63:0] temp_c0;
+    logic [63:0] temp_c1;
+    logic [15:0] temp_mod_c0;
+    logic [15:0] temp_mod_c1;
+
+    // Constants
+    localparam int Q = 3329;
 
     always_comb begin
+        // Compute intermediate results
         temp_c0 = a0 * b0 + a1 * b1 * gamma;
         temp_c1 = a0 * b1 + a1 * b0;
-
-        // Apply modulo q operation by conditionally subtracting q
-        temp_mod_c0 = temp_c0 % 3329;
-        temp_mod_c1 = temp_c1 % 3329;
+        $display("c0",a0, b0, a1, b1, gamma, temp_c0);
+        // Apply modulo operation manually
+        temp_mod_c0 = temp_c0 - (temp_c0 / Q) * Q;
+        temp_mod_c1 = temp_c1 - (temp_c1 / Q) * Q;
 
         // Truncate the result to 16 bits
-        mod_c0 = temp_mod_c0[15:0];
-        mod_c1 = temp_mod_c1[15:0];
-
-        c0 = mod_c0;
-        c1 = mod_c1;
+        c0 = temp_mod_c0[15:0];
+        c1 = temp_mod_c1;
     end
+
 endmodule
