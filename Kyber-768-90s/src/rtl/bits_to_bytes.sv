@@ -1,17 +1,21 @@
-module bits_to_bytes #(parameter BYTE_LEN = 32) ( 
-    input  logic [BYTE_LEN*8-1:0] bit_array,      
-    output logic [7:0] B [0:BYTE_LEN-1]         
+`timescale 1ns / 1ps
+module bits_to_bytes #(
+    parameter BIT_LENGTH = 256, 
+    parameter BYTE_LENGTH = BIT_LENGTH / 8
+) (
+    input  logic [BIT_LENGTH-1:0] bit_array,
+    output logic [BYTE_LENGTH-1:0] byte_array
 );
-    integer i;
+
+    integer i; 
 
     always_comb begin
-        for (i = 0; i < BYTE_LEN; i++) begin
-            B[i] = 0; 
-        end
 
-       
-        for (i = 0; i < BYTE_LEN * 8; i++) begin
-            B[i / 8] = B[i / 8] + bit_array[i] * (2 ** (7 - (i % 8))); 
+        byte_array = '0;
+
+        for (i = 0; i < BIT_LENGTH; i = i + 1) begin
+            byte_array[i / 8] = byte_array[i / 8] | (bit_array[i] << (i % 8));
         end
     end
+
 endmodule
