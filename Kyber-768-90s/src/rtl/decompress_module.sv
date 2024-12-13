@@ -1,7 +1,8 @@
+`timescale 1ns / 1ps
 module decompress_module (
-    input logic [31:0] x,      
-    input logic [31:0] d,      
-    output logic [31:0] result  
+    input logic [15:0] x,      
+    input logic [15:0] d,      
+    output logic [15:0] result  
 );
     localparam int q = 3329;    
 
