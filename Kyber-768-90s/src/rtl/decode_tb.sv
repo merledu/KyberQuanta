@@ -1,61 +1,50 @@
 `timescale 1ns / 1ps
 
-module tb_Decode;
+module decode_tb;
 
     // Parameters
     parameter ELL = 8;
     parameter NUM_COEFFS = 256;
-    parameter BYTE_COUNT = 32;
 
-    // DUT inputs and outputs
-    logic [7:0] byte_array [0:BYTE_COUNT-1];
-    logic [$clog2(BYTE_COUNT):0] len;
+    // Testbench signals
+    logic [7:0] byte_array [31:0];
+    logic [7:0] len;
     logic [ELL-1:0] coeffs [0:NUM_COEFFS-1];
 
-    // Instantiate the DUT
-    Decode #(
+    // Instantiate the decode module
+    decode #(
         .ELL(ELL),
-        .NUM_COEFFS(NUM_COEFFS),
-        .BYTE_COUNT(BYTE_COUNT)
-    ) dut (
+        .NUM_COEFFS(NUM_COEFFS)
+    ) decode_inst (
         .byte_array(byte_array),
         .len(len),
         .coeffs(coeffs)
     );
 
-    // Testbench variables
-    integer i;
-    reg [7:0] input_byte_array [0:BYTE_COUNT-1];
-    reg [15:0] coeffs_sv [0:NUM_COEFFS-1];
-
+    // Byte array example from the C++ testbench
     initial begin
-        // Initialize the input byte array (same as in Verilator testbench)
-        input_byte_array = '{
-            8'h49, 8'h8B, 8'h0B, 8'hFF, 8'hFE, 8'hCE, 8'hB3, 8'hC5,
-            8'h6C, 8'hE7, 8'h1E, 8'h8B, 8'hA4, 8'h6F, 8'h61, 8'hEF,
-            8'h07, 8'hCD, 8'h2A, 8'hCD, 8'h46, 8'h16, 8'h58, 8'hBE,
-            8'hCA, 8'hAE, 8'h59, 8'hA2, 8'h78, 8'h50, 8'hA1, 8'hA4
-        };
+        byte_array[0] = 8'h49; byte_array[1] = 8'h8B; byte_array[2] = 8'h0B; byte_array[3] = 8'hFF;
+        byte_array[4] = 8'hFE; byte_array[5] = 8'hCE; byte_array[6] = 8'hB3; byte_array[7] = 8'hC5;
+        byte_array[8] = 8'h6C; byte_array[9] = 8'hE7; byte_array[10] = 8'h1E; byte_array[11] = 8'h8B;
+        byte_array[12] = 8'hA4; byte_array[13] = 8'h6F; byte_array[14] = 8'h61; byte_array[15] = 8'hEF;
+        byte_array[16] = 8'h07; byte_array[17] = 8'hCD; byte_array[18] = 8'h2A; byte_array[19] = 8'hCD;
+        byte_array[20] = 8'h46; byte_array[21] = 8'h16; byte_array[22] = 8'h58; byte_array[23] = 8'hBE;
+        byte_array[24] = 8'hCA; byte_array[25] = 8'hAE; byte_array[26] = 8'h59; byte_array[27] = 8'hA2;
+        byte_array[28] = 8'h78; byte_array[29] = 8'h50; byte_array[30] = 8'hA1; byte_array[31] = 8'hA4;
 
-        // Assign the input byte array to the DUT
-        for (i = 0; i < BYTE_COUNT; i = i + 1) begin
-            byte_array[i] = input_byte_array[i];
+        // Set the length
+        len = 8'd32;
+
+        // Wait for a delta cycle to simulate combinational logic propagation
+        #1;
+
+        // Print the coefficients
+        $display("SystemVerilog Decode Output:");
+        for (int i = 0; i < NUM_COEFFS; i++) begin
+            $display("Coefficient %0d: %0d", i, coeffs[i]);
         end
 
-        // Set the length of the byte array
-        len = BYTE_COUNT;
-
-        // Wait for combinational logic to propagate
-        #10;
-
-        // Print the output coefficients
-        $display("Output Coefficients:");
-        for (i = 0; i < NUM_COEFFS; i = i + 1) begin
-            coeffs_sv[i] = coeffs[i];
-            $display("Coefficient %0d: %0d", i, coeffs_sv[i]);
-        end
-
-        // Finish simulation
+        // End simulation
         $finish;
     end
 
