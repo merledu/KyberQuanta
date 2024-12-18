@@ -1,15 +1,12 @@
 `timescale 1ns / 1ps
 
 module bits_to_bytes_tb;
-    // Parameters
     localparam BIT_LENGTH = 2048;
     localparam BYTE_LENGTH = BIT_LENGTH / 8;
 
-    // Testbench signals
     reg [BIT_LENGTH-1:0] bit_array;
-    wire [7:0] byte_array [0:BYTE_LENGTH-1]; // Unpacked array
+    wire [7:0] byte_array [0:BYTE_LENGTH-1];
 
-    // DUT instantiation
     bits_to_bytes #(
         .BIT_LENGTH(BIT_LENGTH),
         .BYTE_LENGTH(BYTE_LENGTH)
@@ -18,9 +15,7 @@ module bits_to_bytes_tb;
         .byte_array(byte_array)
     );
 
-    // Test vector
     initial begin
-        // Assign the input bit_array with a repeating pattern for testing
         bit_array = {
                     8'h01, 8'h02, 8'h03, 8'h04, 8'h05, 8'h06, 8'h07, 8'h08, 
                     8'h09, 8'h0A, 8'h0B, 8'h0C, 8'h0D, 8'h0E, 8'h0F, 8'h10, 
@@ -54,23 +49,19 @@ module bits_to_bytes_tb;
                     8'hE9, 8'hEA, 8'hEB, 8'hEC, 8'hED, 8'hEE, 8'hEF, 8'hF0, 
                     8'hF1, 8'hF2, 8'hF3, 8'hF4, 8'hF5, 8'hF6, 8'hF7, 8'hF8, 
                     8'hF9, 8'hFA, 8'hFB, 8'hFC, 8'hFD, 8'hFE, 8'hFF, 8'h00
-                }; // Each byte in bit_array is 178 (0b10110010 in decimal)
+                }; 
 
-        // Wait for a few simulation cycles for output to settle
         #10;
 
-        // Display the input bit array
         $display("Input bit_array:");
         $display("%b", bit_array);
 
-        // Display the unpacked byte array (in little-endian format)
         $display("Output byte_array (little-endian):");
         for (int i = 0; i < BYTE_LENGTH; i = i + 1) begin
-            $display("byte_array[%0d] = %b (decimal %0d, hex %h)", 
+            $display("byte_array[%0d] = %0d", 
                      i, byte_array[i], byte_array[i], byte_array[i]);
         end
 
-        // End simulation
         $finish;
     end
 endmodule
