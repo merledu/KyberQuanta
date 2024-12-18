@@ -12,12 +12,12 @@ def byte_encoded(F, d):
             a = (a - b[i * d + j]) // 2
 
     B = bits_to_bytes(b, 32 * d)  
-
+    print(B)
     return B
 F = []
 for i in range(256):
     F.append(i)
-print("F",F)
+# print("F",F)
 d = 8 
 byte_array = byte_encoded(F, d)
-print(byte_array)
+# print(byte_array)
