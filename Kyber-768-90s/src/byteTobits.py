@@ -14,5 +14,5 @@ def bytes_to_bits(B):
 
 B = os.urandom(256)
 bytearray = bytes_to_bits(B)
-print(len(bytearray))
-print(bytearray)
+# print(len(bytearray))
+# print(bytearray)
