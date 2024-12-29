@@ -12,7 +12,7 @@ def bytes_to_bits(B):
     return bit_array
 
 
-B = bytes(range(256))
+B = os.urandom(256)
 bytearray = bytes_to_bits(B)
 # print(len(bytearray))
 # print(bytearray)

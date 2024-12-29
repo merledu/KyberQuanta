@@ -22,7 +22,7 @@ module tb_bytes_to_bits;
 
     initial begin
         $display("Starting Test Case 1...");
-        len = 256; // Set length to 256 to produce 2048 bits
+        len = 256; 
 
         for (i = 0; i < BYTE_COUNT; i++) begin
             test_data[i] = (i < 256) ? i : 8'h00; 
