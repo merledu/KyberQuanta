@@ -1,12 +1,18 @@
-import math
+import os
 
-def hex_to_bytes(hex_string):
-    return bytes.fromhex(hex_string)
+def bytes_to_bits(B):
+    bit_array = [0] * (len(B) * 8)
+    B = list(B)
 
-def BytesToBits(hex_string):
-    byte_array = hex_string
-    bits_array = []
-    for byte in byte_array:
-        for i in range(8):
-            bits_array.append((byte >> (7 - i)) & 1)
-    return bits_array
+    for i in range(len(B)):
+        for j in range(8):
+            bit_array[8 * i + j] = B[i] % 2
+            B[i] =  B[i] //2
+
+    return bit_array
+
+
+B = bytes(range(256))
+bytearray = bytes_to_bits(B)
+# print(len(bytearray))
+# print(bytearray)

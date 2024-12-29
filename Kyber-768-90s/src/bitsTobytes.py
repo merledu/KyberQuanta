@@ -2,7 +2,7 @@ def bits_to_bytes(bit_array, l):
    
     
     B = [0] * l
-    print("B",len(B))
+    # print("B",len(B))
     for i in range(len(bit_array)):
         B[i // 8] = B[i // 8] + bit_array[i] * (2 ** ((i % 8))) 
 
@@ -127,5 +127,5 @@ bit_array = [
     1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0
 ]  
 byte_array = bits_to_bytes(bit_array, l)
-print(len(byte_array))
-print(byte_array)
+# print(len(byte_array))
+# print(byte_array)
