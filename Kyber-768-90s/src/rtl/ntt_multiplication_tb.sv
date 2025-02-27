@@ -1,43 +1,40 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10.12.2024 21:57:35
-// Design Name: 
-// Module Name: ntt_multiplication_tb
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
+module multiply_ntts_tb;
 
-module ntt_multplication_tb;
+    // Testbench signals
+    logic clk;
+    logic reset;
     logic [15:0] f [255:0];
     logic [15:0] g [255:0];
-
     logic [15:0] zetas [127:0];
     logic [15:0] h [255:0];
-    
+
+    // Instantiate the DUT (Device Under Test)
     multiply_ntts uut (
+        .clk(clk),
+        .reset(reset),
         .f(f),
         .g(g),
-
         .zetas(zetas),
         .h(h)
     );
 
+    // Clock generation
     initial begin
+        clk = 0; // Initialize clock to 0
+        forever #5 clk = ~clk; // Toggle clock every 5 ns (100 MHz clock frequency)
+    end
+
+    // Testbench stimulus
+    initial begin
+        // Initialize inputs
+        reset = 1;
+        #10; // Wait for 10 ns
+        reset = 0; // Deassert reset
+        
         $dumpfile("ntt_multiplication.vcd");
-        $dumpvars(0, ntt_multplication_tb);
+        $dumpvars(0, multiply_ntts_tb);
         
         f[0] = 245; f[1] = 1023; f[2] = 3100; f[3] = 201; f[4] = 2764; f[5] = 678; f[6] = 1455; f[7] = 2730;
         f[8] = 3072; f[9] = 160; f[10] = 1340; f[11] = 2220; f[12] = 2789; f[13] = 189; f[14] = 2556; f[15] = 1583;
@@ -122,14 +119,14 @@ module ntt_multplication_tb;
         zetas[112] = 1062; zetas[113] = 1919; zetas[114] = 193; zetas[115] = 797; zetas[116] = 2786; zetas[117] = 3260; zetas[118] = 569; zetas[119] = 1746;
         zetas[120] = 2642; zetas[121] = 630; zetas[122] = 1897; zetas[123] = 848; zetas[124] = 2580; zetas[125] = 3289; zetas[126] = 1729; zetas[127] = 3328;
  zetas[17] = 2637;
+        
 
-        #10;  
+        #1000; // Run simulation for some time
         $display("Resulting polynomial h:");
-        for (int i = 0; i < 256; i++) begin
-            $display("h[%0d] = %0d", i, h[i]);
-        end
-
-        $finish;
+                for (int i = 0; i < 256; i++) begin
+                    $display("h[%0d] = %0d", i, h[i]);
+                end
+        $finish; // End the simulation
     end
-
 endmodule
+
