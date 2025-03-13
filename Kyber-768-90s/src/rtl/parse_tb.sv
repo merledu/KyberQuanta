@@ -1,48 +1,69 @@
-`timescale 1ns / 1ps
-
+`timescale 1ns/1ps
 module parse_tb;
+  // Clock, reset, and control signals
+  logic clk;
+  logic rst;
+  logic start;
+  logic done;
+  
+  // Input and output arrays
+  logic [9:0]  B [0:767];   // 768 words, 10-bit each
+  logic [11:0] a [0:255];    // 256 words, 12-bit each
 
-    logic clk;
-    logic rst;
-    logic [15:0] B[767:0];
-    logic [15:0] a[255:0];
+  // Instantiate the parse module
+  parse uut (
+    .clk(clk),
+    .rst(rst),
+    .start(start),
+    .B(B),
+    .done(done),
+    .a(a)
+  );
 
-    // Instantiate the parse module
-    parse #(.Q(3329)) DUT (
-        .clk(clk),
-        .rst(rst),
-        .B(B),
-        .a(a)
-    );
+  // Clock generation: 10 ns period
+  initial clk = 0;
+  always #5 clk = ~clk;
+  
+  // Testbench initial block
+  initial begin
+    $display("Starting simulation...");
     
-    // Clock generation
-    initial begin
-        clk = 0;
-        forever #5 clk = ~clk;  // Clock with a period of 10ns
+    // Initialize reset and start signals
+    rst   = 1;
+    start = 0;
+    #10;
+    rst = 0;
+    
+    // Initialize input array B: B[k] = k (for k in 0..767)
+    for (int k = 0; k < 768; k++) begin
+      B[k] = k;
     end
     
-    // Initialize and run the test
-    initial begin
-        rst = 1;
-        #10 rst = 0;  // Apply reset for 10ns (previously was 20ns, but corrected to match comment)
-        $display("Reset released at %t, clk=%b, rst=%b", $time, clk, rst);
-        #10;
-        $display("Post-reset check at %t, clk=%b, rst=%b", $time, clk, rst);
-
-        // Initialize B with the same values as in Python
-        for (int i = 0; i < 768; i++) begin
-            B[i] = i % 3329;
-            $display("B[%0d] initialized to %0d at time %t", i, B[i], $time);
-        end
-    
-        // Extend simulation time to ensure it covers the required number of iterations
-        #500000; // Increased wait time for extended simulation
-
-        // Print the output after processing is complete
-        for (int i = 0; i < 256; i++) begin
-            $display("a[%0d] = %0d at time %t", i, a[i], $time);
-        end
-    
-        $finish; // End the simulation
+    // Display the input array
+    $display("Input B:");
+    for (int k = 0; k < 768; k = k + 1) begin
+      $write("%0d ", B[k]);
+      if ((k+1) % 16 == 0) $write("\n");
     end
+    
+    // Start the parse module
+    #10;
+    start = 1;
+    #10;
+    start = 0;
+    
+    // Wait for the module to signal done.
+    wait (done);
+    #10;
+    
+    // Display the output array a
+    $display("\nOutput array a:");
+    for (int k = 0; k < 256; k++) begin
+      $display("a[%0d] = %0d", k, a[k]);
+    end
+    
+    $display("Simulation finished.");
+    $finish;
+  end
+
 endmodule
