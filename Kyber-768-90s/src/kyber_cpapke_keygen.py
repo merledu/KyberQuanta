@@ -24,6 +24,7 @@ def kyber_cpapke_keygen():
     A_hat = [[None] * k for _ in range(k)]
     for i in range(k):
         for j in range(k):
+            
             A_hat[i][j] = parse(q, XOF(rho, j, i, 768))
         
     N = 0
@@ -58,10 +59,12 @@ def kyber_cpapke_keygen():
 
     pk_temp = bytes(0)
     for i in range(k):
+        print("lengthhhhh",len(Encode(t_hat[i], 12)))
         pk_temp += Encode(t_hat[i], 12)
         # print("pk--", pk_temp)
-    
+    print("lengthhhh",len(pk_temp))
     pk = pk_temp + rho
+    
     sk = bytes(0)
     for j in range(k):
         sk += Encode(s_hat[j], 12)  

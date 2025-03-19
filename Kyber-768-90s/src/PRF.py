@@ -1,7 +1,7 @@
 import os
 import hashlib
-from Crypto.Cipher import AES
-from Crypto.Util import Counter
+from Cryptodome.Cipher import AES
+from Cryptodome.Util import Counter
 
 def PRF(sigma, N, output_len=32):
     assert len(sigma) == 32, "Sigma must be 32 bytes for AES-256."

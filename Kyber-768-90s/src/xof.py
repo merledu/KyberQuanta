@@ -1,5 +1,5 @@
-from Crypto.Cipher import AES
-from Crypto.Util import Counter
+from Cryptodome.Cipher import AES
+from Cryptodome.Util import Counter
 import hashlib
 import os
 
@@ -12,7 +12,7 @@ def XOF(rho, i, j,output_length):
     ctr = Counter.new(32, prefix=nonce, initial_value=0, little_endian=False)
     cipher = AES.new(key, AES.MODE_CTR, counter=ctr)
     output = cipher.encrypt(b'\x00' * output_length)
-    
+    # print("check",type(output))
     return output
 
 rho = os.urandom(32)  
