@@ -26,10 +26,10 @@ def compute_ntt(coeffs):
 
     # Perform the NTT transformation
     while l >= 2:
-        print("l",l)
+        # print("l",l)
         start = 0
         while start < n:
-            print("start",start)
+            # print("start",start)
             zeta = zetas[k]
             k += 1
             for j in range(start, start + l):
@@ -40,9 +40,9 @@ def compute_ntt(coeffs):
                 coeffs[j] = (coeffs[j] + t) % q 
                
             start = l + (j +1)
-            print("start",start)
+            # print("start",start)
         l = l >> 1
-        print("l",l)
+        # print("l",l)
 
     # Ensure the coefficients are in range [0, q)
     for j in range(n):

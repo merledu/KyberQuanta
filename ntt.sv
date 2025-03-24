@@ -9,23 +9,23 @@ module ntt #(parameter N = 256, parameter Q = 3329) (
 );
     // Initialize zetas array with given values
     logic signed [15:0] zetas [0:127] = {
-            1, 1729, 2580, 3289, 2642, 630, 1897, 848,
-            1062, 1919, 193, 797, 2786, 3260, 569, 1746,
-            296, 2447, 1339, 1476, 3046, 56, 2240, 1333,
-            1426, 2094, 535, 2882, 2393, 2879, 1974, 821,
-            289, 331, 3253, 1756, 1197, 2304, 2277, 2055,
-            650, 1977, 2513, 632, 2865, 33, 1320, 1915,
-            2319, 1435, 807, 452, 1438, 2868, 1534, 2402,
-            2647, 2617, 1481, 648, 2474, 3110, 1227, 910,
-            17, 2761, 583, 2649, 1637, 723, 2288, 1100,
-            1409, 2662, 3281, 233, 756, 2156, 3015, 3050,
-            1703, 1651, 2789, 1789, 1847, 952, 1461, 2687,
-            939, 2308, 2437, 2388, 733, 2337, 268, 641,
-            1584, 2298, 2037, 3220, 375, 2549, 2090, 1645,
-            1063, 319, 2773, 757, 2099, 561, 2466, 2594,
-            2804, 1092, 403, 1026, 1143, 2150, 2775, 886,
-            1722, 1212, 1874, 1029, 2110, 2935, 885, 2154
- }; 
+        1, 1729, 2580, 3289, 2642, 630, 1897, 848,
+        1062, 1919, 193, 797, 2786, 3260, 569, 1746,
+        296, 2447, 1339, 1476, 3046, 56, 2240, 1333,
+        1426, 2094, 535, 2882, 2393, 2879, 1974, 821,
+        289, 331, 3253, 1756, 1197, 2304, 2277, 2055,
+        650, 1977, 2513, 632, 2865, 33, 1320, 1915,
+        2319, 1435, 807, 452, 1438, 2868, 1534, 2402,
+        2647, 2617, 1481, 648, 2474, 3110, 1227, 910,
+        17, 2761, 583, 2649, 1637, 723, 2288, 1100,
+        1409, 2662, 3281, 233, 756, 2156, 3015, 3050,
+        1703, 1651, 2789, 1789, 1847, 952, 1461, 2687,
+        939, 2308, 2437, 2388, 733, 2337, 268, 641,
+        1584, 2298, 2037, 3220, 375, 2549, 2090, 1645,
+        1063, 319, 2773, 757, 2099, 561, 2466, 2594,
+        2804, 1092, 403, 1026, 1143, 2150, 2775, 886,
+        1722, 1212, 1874, 1029, 2110, 2935, 885, 2154
+    };
 
     // State machine definition
     typedef enum logic [3:0] {
@@ -52,33 +52,9 @@ module ntt #(parameter N = 256, parameter Q = 3329) (
     logic [7:0] zeta_idx;
     
     // Intermediate values
-    logic signed [31:0] zeta;  // Extended to handle multiplication
-    logic signed [31:0] temp;  // Extended to handle multiplication
-    logic signed [31:0] t, u;  // For butterfly computation
-    
-    // Function for modular reduction
-    function automatic logic signed [15:0] mod_reduce;
-        input logic signed [31:0] a;
-        logic signed [31:0] t;
-        begin
-            t = a;
-            
-            // First handle negative numbers
-            if (t < 0) begin
-                t = t + (((-t + Q - 1) / Q + 1) * Q);
-            end
-            
-            // Now t is positive, reduce modulo Q
-            t = t % Q;
-            
-            // Ensure output is in [0, Q-1]
-            if (t >= Q) begin
-                t = t - Q;
-            end
-            
-            mod_reduce = t[15:0];
-        end
-    endfunction
+    logic signed [15:0] zeta;
+    logic signed [15:0] temp;
+    logic signed [15:0] added;
 
     // Pairs array remains the same
     logic [7:0] pairs [0:126][0:1] = '{
@@ -88,7 +64,7 @@ module ntt #(parameter N = 256, parameter Q = 3329) (
         '{128, 136}, '{144, 152}, '{160, 168}, '{176, 184}, '{192, 200}, '{208, 216}, '{224, 232}, '{240, 248},
         '{0, 4}, '{8, 12}, '{16, 20}, '{24, 28}, '{32, 36}, '{40, 44}, '{48, 52}, '{56, 60},
         '{64, 68}, '{72, 76}, '{80, 84}, '{88, 92}, '{96, 100}, '{104, 108}, '{112, 116}, '{120, 124},
-        '{128, 132}, '{136, 140}, '{144, 148}, '{152, 156}, '{160, 164}, '{168, 172}, '{176, 178}, '{184, 188},
+        '{128, 132}, '{136, 140}, '{144, 148}, '{152, 156}, '{160, 164}, '{168, 172}, '{176, 180}, '{184, 188},
         '{192, 196}, '{200, 204}, '{208, 212}, '{216, 220}, '{224, 228}, '{232, 236}, '{240, 244}, '{248, 252},
         '{0, 2}, '{4, 6}, '{8, 10}, '{12, 14}, '{16, 18}, '{20, 22}, '{24, 26}, '{28, 30},
         '{32, 34}, '{36, 38}, '{40, 42}, '{44, 46}, '{48, 50}, '{52, 54}, '{56, 58}, '{60, 62},
@@ -110,7 +86,7 @@ module ntt #(parameter N = 256, parameter Q = 3329) (
             j <= 0;
             k <= 0;
             length <= 128;
-            zeta_idx <= 0;
+            zeta_idx <= 1;
             zeta <= 0;
         end else begin
             case (state)
@@ -171,19 +147,15 @@ module ntt #(parameter N = 256, parameter Q = 3329) (
 
                 BUTTERFLY_OP: begin
                     if (j < pairs[k][1] && (j + length) < N) begin
-                        // Load values
-                        t = f_hat[j];
-                        u = f_hat[j + length];
+                        added = f_hat[j + length];
+                        temp = (zeta * added) % Q;
+                        if (temp < 0) temp = temp + Q;
                         
-                        // Get zeta value and compute zeta * u (mod q)
-                        zeta = zetas[zeta_idx];
-                        temp = mod_reduce(zeta * u);
+                        f_hat[j + length] <= (f_hat[j] - temp) % Q;
+                        if (f_hat[j + length] < 0) f_hat[j + length] <= f_hat[j + length] + Q;
                         
-                        // Update f_hat[j + length]
-                        f_hat[j + length] <= mod_reduce(t - temp);
-                        
-                        // Update f_hat[j]
-                        f_hat[j] <= mod_reduce(t + temp);
+                        f_hat[j] <= (f_hat[j] + temp) % Q;
+                        if (f_hat[j] < 0) f_hat[j] <= f_hat[j] + Q;
                         
                         j <= j + 1;
                     end else begin
@@ -194,7 +166,10 @@ module ntt #(parameter N = 256, parameter Q = 3329) (
 
                 NORMALIZE: begin
                     if (j < N) begin
-                        f_hat[j] <= mod_reduce(f_hat[j]);
+                        f_hat[j] <= f_hat[j] % Q;
+                        if (f_hat[j] < 0) begin
+                            f_hat[j] <= f_hat[j] + Q;
+                        end
                         j <= j + 1;
                     end else begin
                         state <= DONE;

@@ -1,4 +1,6 @@
 def parse(q, B):
+    print("q:", q)
+    print("B:", B)
     a = [0 for _ in range(256)]
     i = 0   
     j = 0
