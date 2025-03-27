@@ -16,6 +16,6 @@ def parse(q, B):
         i += 3
     return a
 q = 3329  
-B = [i % 3329 for i in range(768)] 
+B = [i % 255 for i in range(768)] 
 result = parse(q, B)
 print("Result:", result)

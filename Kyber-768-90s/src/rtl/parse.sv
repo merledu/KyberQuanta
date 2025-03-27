@@ -3,9 +3,9 @@ module parse (
   input  logic         clk,
   input  logic         rst,    // active high reset
   input  logic         start,  // pulse to start processing
-  input  logic [9:0]   B [0:767],  // input array (768 words, 10-bit each)
+  input  logic [7:0]   B [0:767],  // input array (768 words, 10-bit each)
   output logic         done,   // high when 256 outputs have been produced
-  output logic [11:0]  a [0:255]   // output array (256 words, 12-bit each)
+  output logic [11:0]  a  [0:255]  // output array (256 words, 12-bit each)
 );
 
   // Local parameter for modulus Q
@@ -45,6 +45,7 @@ module parse (
       done    <= 1'b0;
       printed <= 1'b0;
     end else begin
+    $display("check",B[765]);
       case (state)
         IDLE: begin
           if (start) begin
@@ -107,6 +108,7 @@ module parse (
         default: state <= IDLE;
       endcase
     end
+    
   end
 
 endmodule
