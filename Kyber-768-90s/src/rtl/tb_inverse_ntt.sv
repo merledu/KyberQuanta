@@ -12,8 +12,8 @@ module tb_inverse_ntt;
     logic rst;
     logic start_ntt;
     logic done_ntt;
-    logic signed [31:0] f_in [0:N-1];
-    logic signed [31:0] f_out [0:N-1];
+    logic signed [31:0] f_in [N-1:0];
+    logic signed [31:0] f_out [N-1:0];
 
     // Instantiate your Inverse NTT module (with counters/ state machine)
     inverse_ntt #(.N(N), .Q(Q), .F(F)) dut (
