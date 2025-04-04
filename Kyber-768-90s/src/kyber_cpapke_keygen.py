@@ -41,19 +41,20 @@ def kyber_cpapke_keygen():
         e[i] = coefficients
         N += 1
     s_hat = [None] * k  
+    
     e_hat = [None] * k
     for i in range (k):
         s_hat[i] = compute_ntt(s[i])
        
         e_hat[i] = compute_ntt(e[i])
-
+    print("check",s_hat)
     t_hat = [[0] * n for _ in range(k)]  
     for i in range(k):
         for j in range(k):
-            for m in range(len(s_hat[j])):
-                result = multiply_ntts(A_hat[i][j], s_hat[j])
+                result = multiply_ntts(A_hat[j][i], s_hat[j])
                 for r in range(len(result)):
-                    t_hat[i][m] += result[r]
+                    t_hat[i][r] += result[r]
+                      
              
     t_hat = [[(t_hat[i][j] + e_hat[i][j]) % q for j in range(len(t_hat[i]))] for i in range(len(t_hat))]
 
