@@ -21,7 +21,7 @@
 
 
 module padding#(
-    parameter DATAIN = 2320,
+    parameter DATAIN = 256,
     parameter RATE = 576
 )
 (

@@ -21,7 +21,7 @@
 
 
 module Sha3_512#(
-    parameter DATAIN = 2320,
+    parameter DATAIN = 256,
     parameter RATE = 576
 )
 (
@@ -119,22 +119,23 @@ end
             state_temp = 1600'b0;
             r_start = 1'b0;
             case(state)
-                IDLE: begin
+                           
+                 IDLE: begin
                 r_start = 1'b1;
-                    if (r_done == 1'b0) begin
-                        
-                        next_state = IDLE;
+                if (!r_done) begin
+                    next_state = IDLE;
+                end
+                else begin
+                    if (DATAIN <= RATE) begin
+                        next_state = Padding;  // Directly pad if input fits in one block
                     end
                     else begin
-                        if (DATAIN/RATE==1'b1) begin 
-                        
-                            next_state = Padding;
-                        end 
-                        else begin
-                            next_state = Process_Block;
-                        end
-                    end                  
+                        next_state = Process_Block;  // Go to multiblock absorb
+                    end
                 end
+            end
+
+
 
                    Process_Block: begin
                     r_start = 1'b1;

@@ -3,7 +3,7 @@ module ntt #(parameter N = 256, parameter Q = 3329) (
     input logic clk,
     input logic reset,
     input logic start,
-    input logic signed [15:0] f [255:0],  
+    input logic signed [1:0] f [255:0],  
     output logic signed [15:0] f_hat [255:0],
     output logic done
 );

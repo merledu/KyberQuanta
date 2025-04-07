@@ -3,9 +3,9 @@ module parse (
   input  logic         clk,
   input  logic         rst,    // active high reset
   input  logic         start,  // pulse to start processing
-  input  logic [7:0]   B [0:767],  // input array (768 words, 10-bit each)
+  input  logic [7:0] B [767:0],  // input array (768 words, 10-bit each)
   output logic         done,   // high when 256 outputs have been produced
-  output logic [11:0]  a  [0:255]  // output array (256 words, 12-bit each)
+  output logic [11:0]  a  [255:0]  // output array (256 words, 12-bit each)
 );
 
   // Local parameter for modulus Q
@@ -45,7 +45,8 @@ module parse (
       done    <= 1'b0;
       printed <= 1'b0;
     end else begin
-    $display("check",B[765]);
+//    $display("check",B[765]);
+ $display(B);
       case (state)
         IDLE: begin
           if (start) begin
@@ -83,7 +84,7 @@ module parse (
           i <= i + 3;
           state <= CHECK_DONE2;
         end
-
+       
         // Check if we've filled 256 outputs after d2 processing
         CHECK_DONE2: begin
           if (j == 9'd256)
@@ -94,6 +95,7 @@ module parse (
 
         DONE: begin
           done <= 1'b1;
+          $display("DONEEEEEE");
           // Simulation-only print-out when first entering DONE state.
           if (!printed) begin
             // Use a for loop to display each element of the output array.
@@ -103,10 +105,13 @@ module parse (
             printed <= 1'b1;
           end
           state <= DONE;  // Remain in DONE state.
+          
         end
 
         default: state <= IDLE;
+        
       endcase
+      
     end
     
   end
