@@ -33,10 +33,8 @@ module bytes_to_bits #(
 
     always_comb begin
         b = '0; 
-        $display("HAMNA",B[1]);
         for (i = 0; i < len && i < BYTE_COUNT; i++) begin
             for (j = 0; j < 8; j++) begin
-            $display(B[i][j]);
                 b[8 * i + j] = B[i][j]; // Assign each bit from B to b
             end
         end
