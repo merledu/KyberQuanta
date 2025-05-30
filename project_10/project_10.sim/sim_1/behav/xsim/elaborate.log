@@ -1,0 +1,30 @@
+Vivado Simulator 2018.2
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: D:/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto c6b0ac1eec454e91b4901f4b144e8c90 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_ml_kem_decaps_internal_behav xil_defaultlib.tb_ml_kem_decaps_internal xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 16 for port len [D:/project_10/project_10.srcs/sources_1/new/K_PKE_Decrypt.sv:159]
+WARNING: [VRFC 10-278] actual bit length 16 differs from formal bit length 10 for port len [D:/project_10/project_10.srcs/sources_1/new/decode.sv:43]
+WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 16 for port len [D:/project_10/project_10.srcs/sources_1/new/K_PKE_Decrypt.sv:427]
+WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 16 for port len [D:/project_10/project_10.srcs/sources_1/new/K_PKE_Decrypt.sv:696]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.bytes_to_bits(BYTE_COUNT=320,BIT...
+Compiling module xil_defaultlib.decode(ELL=10,BYTE_COUNT=320)
+Compiling module xil_defaultlib.decompress_module
+Compiling module xil_defaultlib.bytes_to_bits(BYTE_COUNT=128,BIT...
+Compiling module xil_defaultlib.decode(ELL=4,BYTE_COUNT=128)
+Compiling module xil_defaultlib.bytes_to_bits(BYTE_COUNT=1152,BI...
+Compiling module xil_defaultlib.decode(BYTE_COUNT=1152)
+Compiling module xil_defaultlib.ntt
+Compiling module xil_defaultlib.inverse_ntt
+Compiling module xil_defaultlib.compress_module
+Compiling module xil_defaultlib.bits_to_bytes(BIT_LENGTH=256,BYT...
+Compiling module xil_defaultlib.encode(D=1)
+Compiling module xil_defaultlib.K_PKE_Decrypt
+Compiling module xil_defaultlib.ml_kem_decaps_internal
+Compiling module xil_defaultlib.tb_ml_kem_decaps_internal
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_ml_kem_decaps_internal_behav

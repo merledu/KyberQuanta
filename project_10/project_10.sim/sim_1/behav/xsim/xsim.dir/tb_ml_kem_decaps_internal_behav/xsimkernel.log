@@ -1,0 +1,4 @@
+Running: xsim.dir/tb_ml_kem_decaps_internal_behav/xsimk.exe -simmode gui -wdb tb_ml_kem_decaps_internal_behav.wdb -simrunnum 0 -socket 53839
+Design successfully loaded
+Design Loading Memory Usage: 7384 KB (Peak: 7384 KB)
+Design Loading CPU Usage: 0 ms
