@@ -3,6 +3,27 @@
 // Company: 
 // Engineer: 
 // 
+// Create Date: 30.05.2025 12:02:09
+// Design Name: 
+// Module Name: ntt
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
 // Create Date: 05/24/2025 10:13:26 PM
 // Design Name: 
 // Module Name: ntt
