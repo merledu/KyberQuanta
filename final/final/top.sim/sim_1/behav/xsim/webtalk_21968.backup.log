@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Webtalk v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Sun Oct 20 19:15:01 2024
+# Process ID: 21968
+# Current directory: F:/FYP/SHA3-256/Code/top/top.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source F:/FYP/SHA3-256/Code/top/top.sim/sim_1/behav/xsim/xsim.dir/toptb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: F:/FYP/SHA3-256/Code/top/top.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: F:/FYP/SHA3-256/Code/top/top.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source F:/FYP/SHA3-256/Code/top/top.sim/sim_1/behav/xsim/xsim.dir/toptb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Sun Oct 20 19:15:03 2024...

@@ -1,0 +1,31 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Mon Apr 14 02:29:07 2025
+# Process ID: 26572
+# Current directory: C:/Users/Matebook 14/Downloads/final/final
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent29736 C:\Users\Matebook 14\Downloads\final\final\top.xpr
+# Log file: C:/Users/Matebook 14/Downloads/final/final/vivado.log
+# Journal file: C:/Users/Matebook 14/Downloads/final/final\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/Matebook 14/Downloads/final/final/top.xpr}
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/chi.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/fn_top.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/iota.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/padding.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/pi.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/rho.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/theta.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/top.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'C:/Users/Matebook 14/Downloads/final/final/top.srcs/sources_1/new/topp.sv'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
+open_project: Time (s): cpu = 00:00:14 ; elapsed = 00:00:08 . Memory (MB): peak = 896.133 ; gain = 208.074
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon Apr 14 03:24:48 2025...

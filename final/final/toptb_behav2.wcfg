@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="toptb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="toptb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="436250000fs"></ZoomStartTime>
+      <ZoomEndTime time="515150001fs"></ZoomEndTime>
+      <Cursor1Time time="449250000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="480"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="24" />
+   <wvobject fp_name="/toptb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/mul_count" type="array">
+      <obj_property name="ElementShortName">mul_count[3:0]</obj_property>
+      <obj_property name="ObjectShortName">mul_count[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/data_in" type="array">
+      <obj_property name="ElementShortName">data_in[3999:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[3999:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/datain_temp" type="array">
+      <obj_property name="ElementShortName">datain_temp[1087:0]</obj_property>
+      <obj_property name="ObjectShortName">datain_temp[1087:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_padding/datain" type="array">
+      <obj_property name="ElementShortName">datain[1087:0]</obj_property>
+      <obj_property name="ObjectShortName">datain[1087:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/aa" type="array">
+      <obj_property name="ElementShortName">aa[1087:0]</obj_property>
+      <obj_property name="ObjectShortName">aa[1087:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/bb" type="array">
+      <obj_property name="ElementShortName">bb[1087:0]</obj_property>
+      <obj_property name="ObjectShortName">bb[1087:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/cc" type="array">
+      <obj_property name="ElementShortName">cc[1087:0]</obj_property>
+      <obj_property name="ObjectShortName">cc[1087:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/dd" type="array">
+      <obj_property name="ElementShortName">dd[1087:0]</obj_property>
+      <obj_property name="ObjectShortName">dd[1087:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/round_count" type="array">
+      <obj_property name="ElementShortName">round_count[3:0]</obj_property>
+      <obj_property name="ObjectShortName">round_count[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/state" type="array">
+      <obj_property name="ElementShortName">state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_fn_top/state" type="array">
+      <obj_property name="ElementShortName">state[4:0]</obj_property>
+      <obj_property name="ObjectShortName">state[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_fn_top/round_start" type="logic">
+      <obj_property name="ElementShortName">round_start</obj_property>
+      <obj_property name="ObjectShortName">round_start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_fn_top/round_done" type="logic">
+      <obj_property name="ElementShortName">round_done</obj_property>
+      <obj_property name="ObjectShortName">round_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_padding/temp1" type="array">
+      <obj_property name="ElementShortName">temp1[1087:0]</obj_property>
+      <obj_property name="ObjectShortName">temp1[1087:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_padding/temp2" type="array">
+      <obj_property name="ElementShortName">temp2[1087:0]</obj_property>
+      <obj_property name="ObjectShortName">temp2[1087:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_padding/temp3" type="array">
+      <obj_property name="ElementShortName">temp3[1599:0]</obj_property>
+      <obj_property name="ObjectShortName">temp3[1599:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/state_temp" type="array">
+      <obj_property name="ElementShortName">state_temp[1599:0]</obj_property>
+      <obj_property name="ObjectShortName">state_temp[1599:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_padding/A" type="array">
+      <obj_property name="ElementShortName">A[0:4][0:4][63:0]</obj_property>
+      <obj_property name="ObjectShortName">A[0:4][0:4][63:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_fn_top/u_fn_78/u_iota/iota" type="array">
+      <obj_property name="ElementShortName">iota[0:4][0:4][63:0]</obj_property>
+      <obj_property name="ObjectShortName">iota[0:4][0:4][63:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_fn_top/u_fn_78/u_theta/c_block" type="array">
+      <obj_property name="ElementShortName">c_block[4:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">c_block[4:0][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/u_sha0/u_fn_top/u_fn_78/u_theta/d_block" type="array">
+      <obj_property name="ElementShortName">d_block[4:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">d_block[4:0][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/toptb/digest" type="array">
+      <obj_property name="ElementShortName">digest[0:255]</obj_property>
+      <obj_property name="ObjectShortName">digest[0:255]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+</wave_config>

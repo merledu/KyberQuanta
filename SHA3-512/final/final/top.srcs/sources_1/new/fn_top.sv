@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module fn_top(
+module fn_top_(
     input  logic clk,
     input  logic rst,
     input logic round_start,
